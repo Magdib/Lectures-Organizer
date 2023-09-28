@@ -6,7 +6,7 @@ part of 'DegreesAdapter.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class DegreesAdapter extends TypeAdapter<DegreesModel> {
+class DegreesModelAdapter extends TypeAdapter<DegreesModel> {
   @override
   final int typeId = 2;
 
@@ -38,7 +38,7 @@ class DegreesAdapter extends TypeAdapter<DegreesModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is DegreesAdapter &&
+      other is DegreesModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

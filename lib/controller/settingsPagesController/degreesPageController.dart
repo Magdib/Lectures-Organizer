@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -21,11 +23,14 @@ class DegreesControllerimp extends DegreesController {
   Box userDataBox = Hive.box(HiveBoxes.userDataBox);
   TextEditingController? degreeTextController;
   List<DegreesModel> degrees = [];
+  List<DegreesModel> degreesBS = [];
   late int minDegree;
   double degree = 60;
   late int maxDegree;
   late int degreesSum;
   late double average;
+  late bool smartAverage;
+  late int numofSubAv;
   bool buttonState = false;
   DataState dataState = DataState.loading;
   @override
@@ -48,9 +53,18 @@ class DegreesControllerimp extends DegreesController {
       userDataBox.put(HiveKeys.degreesSum, degreesSum);
       degrees.add(DegreesModel(
           degree: degreeRounded, subjectName: degreeTextController!.text));
-      average = degreesSum / degrees.length;
+      if (smartAverage == false) {
+        average = degreesSum / degrees.length;
+        userDataBox.put(HiveKeys.average, average);
+      } else {
+        //smart average
+        average = (average * numofSubAv + degreeRounded) / (numofSubAv + 1);
+        numofSubAv++;
+        userDataBox.put(HiveKeys.average, average);
+        userDataBox.put(HiveKeys.numOfSubAV, numofSubAv);
+      }
       degreesBox.add(degrees[degrees.length - 1]);
-      userDataBox.put(HiveKeys.average, average);
+      degreesBS.add(degrees[degrees.length - 1]);
       if (degreeRounded > maxDegree) {
         maxDegree = degreeRounded;
         userDataBox.put(HiveKeys.maxDegree, maxDegree);
@@ -61,7 +75,9 @@ class DegreesControllerimp extends DegreesController {
       }
       if (dataState == DataState.empty) {
         dataState = DataState.notEmpty;
+        userDataBox.put(HiveKeys.anyDegree, true);
       }
+      degrees.sort((a, b) => a.degree.compareTo(b.degree));
       Get.back();
       degreeTextController!.clear();
     }
@@ -81,6 +97,8 @@ class DegreesControllerimp extends DegreesController {
 
   @override
   deleteDegree(int index) {
+    int boxIndex = degreesBS.indexWhere(
+        (degree) => degree.subjectName == degrees[index].subjectName);
     if (degrees.length > 1) {
       if (degrees[index].degree == minDegree) {
         minDegree = 100;
@@ -102,20 +120,40 @@ class DegreesControllerimp extends DegreesController {
         }
       }
       degreesSum = degreesSum - degrees[index].degree;
-      degreesBox.deleteAt(index);
+      if (smartAverage == false) {
+        average = degreesSum / degrees.length;
+        userDataBox.put(HiveKeys.average, average);
+      } else {
+        average =
+            (average * numofSubAv - degrees[index].degree) / (numofSubAv - 1);
+
+        userDataBox.put(HiveKeys.average, average);
+        numofSubAv--;
+        userDataBox.put(HiveKeys.numOfSubAV, numofSubAv);
+      }
+      degreesBox.deleteAt(boxIndex);
       degrees.removeAt(index);
-      average = degreesSum / degrees.length;
-      userDataBox.put(HiveKeys.average, average);
+      degreesBS.removeAt(boxIndex);
       userDataBox.put(HiveKeys.degreesSum, degreesSum);
     } else {
       degreesSum = degreesSum - degrees[index].degree;
-      degreesBox.deleteAt(index);
+      if (smartAverage == false) {
+        userDataBox.put(HiveKeys.average, 0.0);
+      } else {
+        average =
+            (average * numofSubAv - degrees[index].degree) / (numofSubAv - 1);
+        numofSubAv--;
+        userDataBox.put(HiveKeys.numOfSubAV, numofSubAv);
+        userDataBox.put(HiveKeys.average, average);
+      }
+      degreesBox.deleteAt(boxIndex);
+      degreesBS.removeAt(boxIndex);
       degrees.removeAt(index);
-      userDataBox.put(HiveKeys.average, 0.0);
+
+      userDataBox.put(HiveKeys.anyDegree, false);
       userDataBox.put(HiveKeys.degreesSum, 0);
       userDataBox.put(HiveKeys.maxDegree, 0);
       userDataBox.put(HiveKeys.minDegree, 0);
-
       dataState = DataState.empty;
     }
     update();
@@ -141,18 +179,17 @@ class DegreesControllerimp extends DegreesController {
   @override
   void onReady() async {
     degreesBox = await Hive.openBox(HiveBoxes.degreesBox);
-
-    if (degreesBox.isNotEmpty) {
-      for (int i = 0; i < degreesBox.length; i++) {
-        if (degreesBox.getAt(i) != null) {
-          degrees.add(degreesBox.getAt(i)!);
-        }
-      }
-    }
+    degrees = degreesBox.values.toList();
+    degreesBS = degreesBox.values.toList();
+    degrees.sort((a, b) => a.degree.compareTo(b.degree));
     if (degrees.isEmpty) {
       dataState = DataState.empty;
     } else {
       dataState = DataState.notEmpty;
+    }
+    smartAverage = hiveNullCheck(HiveKeys.smartAverage, false);
+    if (smartAverage) {
+      numofSubAv = hiveNullCheck(HiveKeys.numOfSubAV, 1);
     }
     update();
     super.onReady();

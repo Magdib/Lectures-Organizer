@@ -6,7 +6,7 @@ import 'package:unversityapp/core/Constant/AppColors.dart';
 import 'dart:io';
 import '../../../view/Widgets/NormalUsePages/LecturesPage/ChooseLectureButton.dart';
 import '../../../view/Widgets/NormalUsePages/LecturesPage/LectureConfirmButton.dart';
-import '../../../view/Widgets/NormalUsePages/LecturesPage/LectureTypeCloumn.dart';
+import '../../../view/Widgets/NormalUsePages/LecturesPage/LectureTypeColumn.dart';
 import '../../../view/Widgets/shared/DialogButton.dart';
 import '../RichText/RichTextStyles.dart';
 
@@ -15,14 +15,14 @@ lectureaddDialog(
 ) {
   final LecturePageControllerimp lecturePageController = Get.find();
   Get.defaultDialog(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: 'إضافة محاضرة',
       barrierDismissible: false,
       titleStyle: TextStyle(
           fontSize: 25,
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.bold),
-      actions: [const LectureTypeCloumn()],
+      actions: [const LectureTypeColumn()],
       content: const ChooseLectureButton(),
       confirm: const LectureConfirmButton(),
       cancel: DialogButton(

@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -12,7 +15,9 @@ import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/Routes/routes.dart';
 import 'package:unversityapp/core/class/enums/DataState.dart';
 import 'package:unversityapp/core/functions/Dialogs/LecturesDialogs.dart';
+import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import 'package:unversityapp/core/functions/validation/TermStringToInt.dart';
+import 'package:unversityapp/core/services/Services.dart';
 import 'package:unversityapp/model/HiveAdaptersModels/SubjectsAdapter.dart';
 
 import '../../core/class/enums/ChooseIconState.dart';
@@ -27,8 +32,9 @@ abstract class LecturePageController extends GetxController {
   int currentIndexToLectures(int index);
   void choosePR();
   void chooseVI();
+  void chooseEX();
   void handleLectureButtonState();
-  void pickLectures();
+  Future<void> pickLectures();
   void lectureTypeFun(String type, int index);
   void addLecture();
   void onWillPop();
@@ -41,9 +47,9 @@ abstract class LecturePageController extends GetxController {
   void deleteLecture(int index);
   void completeLecture(int index);
   void completedLecturesCheck();
-  void addToBookMark(int index, BuildContext context);
+  void addToBookMark(int index);
   void clearCach();
-  void openLecture(int index);
+  Future<void> openLecture(int index);
   void refreshData(int state);
   void getNumberOfPages(
       PdfDocumentLoadedDetails details, BuildContext context, int index);
@@ -66,21 +72,23 @@ class LecturePageControllerimp extends LecturePageController {
   TextEditingController? filterEditController;
   bool canComplete = true;
   late String lectureType;
-
+  bool audioPlay = false;
   late int completedLectures;
   late int numberofLectures;
   late double percent = 0;
   late String randomAdvice;
   late DataState dataState = DataState.loading;
   ChooseIconState iconState = ChooseIconState.empty;
-  bool vi = false, pr = false;
-
+  bool vi = false, pr = false, ex = false;
+  late int selectedViewer;
+  Timer? timer;
+  Timer? minTimer;
+  double? time;
   @override
   List<LecturesPageModel> lectureToCurrent() {
     List<LecturesPageModel> currentList;
-    currentList = lectures
-        .where((lecture) => lecture.oldid.contains(subjectname))
-        .toList();
+    currentList =
+        lectures.where((lecture) => lecture.oldid == subjectname).toList();
     return currentList;
   }
 
@@ -91,7 +99,7 @@ class LecturePageControllerimp extends LecturePageController {
   }
 
   @override
-  void pickLectures() async {
+  Future<void> pickLectures() async {
     lecturesNames.clear();
     filesPathes.clear();
     iconState = ChooseIconState.loading;
@@ -107,10 +115,11 @@ class LecturePageControllerimp extends LecturePageController {
         File cachefile = File(pieckedFile.path!);
         File savedFile =
             await cachefile.copy('${dataDir!.path}/${result.names[i]}');
+        log(savedFile.path);
         filesPathes.add(savedFile.path);
         lecturesNames.add(pieckedFile.name);
-        handleLectureButtonState();
       }
+      handleLectureButtonState();
       iconState = ChooseIconState.completed;
     } else {
       iconState = ChooseIconState.empty;
@@ -163,10 +172,12 @@ class LecturePageControllerimp extends LecturePageController {
             "الرجاء إضافة محاضرة أخرى أو تغيير اسم المحاضرة في حالة تطابق الأسماء");
       } else {
         if (lecturesNames[i] != '') {
-          if (pr == true) {
+          if (pr) {
             lectureTypeFun('عملي', i);
-          } else {
+          } else if (vi) {
             lectureTypeFun('نظري', i);
+          } else {
+            lectureTypeFun("دورة", i);
           }
         }
       }
@@ -185,6 +196,7 @@ class LecturePageControllerimp extends LecturePageController {
   void choosePR() {
     vi = false;
     pr = true;
+    ex = false;
     handleLectureButtonState();
     update();
   }
@@ -193,13 +205,23 @@ class LecturePageControllerimp extends LecturePageController {
   void chooseVI() {
     vi = true;
     pr = false;
+    ex = false;
+    handleLectureButtonState();
+    update();
+  }
+
+  @override
+  void chooseEX() {
+    vi = false;
+    pr = false;
+    ex = true;
     handleLectureButtonState();
     update();
   }
 
   @override
   void handleLectureButtonState() {
-    if (lecturesNames.isNotEmpty && (pr == true || vi == true)) {
+    if (lecturesNames.isNotEmpty && (pr == true || vi == true || ex == true)) {
       lectureButtonState = true;
     } else {
       lectureButtonState = false;
@@ -220,6 +242,7 @@ class LecturePageControllerimp extends LecturePageController {
     filesPathes.clear();
     vi = false;
     pr = false;
+    ex = false;
     handleLectureButtonState();
     iconState = ChooseIconState.empty;
 
@@ -250,6 +273,10 @@ class LecturePageControllerimp extends LecturePageController {
 
         break;
       default:
+        currentLectures = lectures.where((lecture) {
+          return lecture.oldid.contains(subjectname) &&
+              lecture.lecturetype == "دورة";
+        }).toList();
     }
     if (currentLectures.isNotEmpty && dataState == DataState.empty) {
       dataState = DataState.notEmpty;
@@ -329,20 +356,16 @@ class LecturePageControllerimp extends LecturePageController {
   }
 
   @override
-  void addToBookMark(int index, BuildContext context) {
+  void addToBookMark(int index) {
     int lectureIndex = currentIndexToLectures(index);
     lectures[lectureIndex].bookMarked = !lectures[lectureIndex].bookMarked;
     lecturesBox.putAt(lectureIndex, lectures[lectureIndex]);
     if (lectures[lectureIndex].bookMarked == true) {
-      blueSnackBar(
-          currentLectures[index].lecturename,
-          'تم إضافة المحاضرة ${currentLectures[index].lecturename} إلى المحفوظات بنجاح',
-          context);
+      blueSnackBar(currentLectures[index].lecturename,
+          'تم إضافة المحاضرة ${currentLectures[index].lecturename} إلى المحفوظات بنجاح');
     } else {
-      blueSnackBar(
-          currentLectures[index].lecturename,
-          'تم إزالة المحاضرة ${currentLectures[index].lecturename} من المحفوظات بنجاح',
-          context);
+      blueSnackBar(currentLectures[index].lecturename,
+          'تم إزالة المحاضرة ${currentLectures[index].lecturename} من المحفوظات بنجاح');
     }
     update();
   }
@@ -369,7 +392,7 @@ class LecturePageControllerimp extends LecturePageController {
       numberofLectures--;
     }
     userDataBox.put(HiveKeys.lecturesNumber, numberofLectures);
-    blueSnackBar(subjectname, 'تم حذف المادة بنجاح', context);
+    blueSnackBar(subjectname, 'تم حذف المادة بنجاح');
   }
 
   @override
@@ -425,14 +448,37 @@ class LecturePageControllerimp extends LecturePageController {
   }
 
   @override
-  void openLecture(int index) {
+  Future<void> openLecture(int index) async {
     int lectureIndex = currentIndexToLectures(index);
-    addtorecent(index, currentLectures, recentLectures, lectureIndex);
-    Get.toNamed(AppRoutes.lectureViewRoute, arguments: {
-      "lecture": currentLectures[index],
-      "Index": currentIndexToLectures(index),
-      "Where": 0
-    });
+    addtorecent(
+        index, currentLectures, recentLectures, lectureIndex, audioPlay);
+    audioPlay = true;
+    if (timer != null) {
+      timer!.cancel();
+      minTimer!.cancel();
+    }
+    if (selectedViewer != 2) {
+      Get.toNamed(AppRoutes.lectureViewRoute, arguments: {
+        "lecture": currentLectures[index],
+        "Index": currentIndexToLectures(index),
+        "Where": 0,
+        "viewer": selectedViewer
+      });
+    } else {
+      await OpenFile.open(currentLectures[index].lecturepath);
+      if (userDataBox.get(HiveKeys.studyTime) == null ||
+          userDataBox.get(HiveKeys.studyTime) == 0) {
+        time = 0;
+      } else {
+        time = userDataBox.get(HiveKeys.studyTime);
+      }
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        time = time! + (1 / 3600);
+      });
+      minTimer = Timer.periodic(const Duration(minutes: 3), (timer) {
+        userDataBox.put(HiveKeys.studyTime, time);
+      });
+    }
   }
 
   @override
@@ -487,12 +533,20 @@ class LecturePageControllerimp extends LecturePageController {
     userDataBox.get(HiveKeys.lectureType) != null
         ? lectureType = userDataBox.get(HiveKeys.lectureType)
         : lectureType = "الكل";
+    selectedViewer = hiveNullCheck(HiveKeys.selectedViewer, 0);
+
     super.onInit();
   }
 
   @override
   void onClose() {
     filterEditController!.dispose();
+    if (timer != null) {
+      timer!.cancel();
+      minTimer!.cancel();
+    }
+
+    audioHandler.stop();
     super.onClose();
   }
 }

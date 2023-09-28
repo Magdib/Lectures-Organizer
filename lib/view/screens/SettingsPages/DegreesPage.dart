@@ -13,26 +13,21 @@ class DergreePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(DegreesControllerimp());
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () => degreesDialog(context),
         child: const Icon(Icons.add, color: AppColors.white),
       ),
+      appBar: customAppBar("درجات المواد", context),
       body: WillPopScope(
         onWillPop: exitRefreshDegrees,
         child: Padding(
           padding:
-              const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 5),
+              const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomAppBar(
-                text: "درجات المواد",
-              ),
-              const SizedBox(
-                height: 40,
-              ),
               GetBuilder<DegreesControllerimp>(
                 builder: (controller) => Text(
                   ' عدد المواد الكلي : ${controller.degrees.length}',

@@ -1,16 +1,14 @@
 import 'package:get/get.dart';
-
-import '../../view/screens/FeaturesPages/BookMarkLectures.dart';
-import '../../view/screens/FeaturesPages/RecentLectures.dart';
+import '../Routes/routes.dart';
 
 void goToBookMark() {
-  Get.to(() => const BookMark(),
-      transition: Transition.native,
-      duration: const Duration(milliseconds: 600));
+  Get.toNamed(
+    AppRoutes.bookMarkRoute,
+  );
 }
 
 void goToRecentLectures() {
-  Get.to(() => const RecentLectures(),
-      transition: Transition.circularReveal,
-      duration: const Duration(milliseconds: 450));
+  Get.toNamed(
+    AppRoutes.recentLecturesRoute,
+  );
 }

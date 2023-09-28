@@ -18,7 +18,7 @@ class TermDropDownButton extends StatelessWidget {
           iconEnabledColor: AppColors.cyan,
           style: Theme.of(context).textTheme.headline6,
           menuMaxHeight: 180,
-          dropdownColor: Theme.of(context).backgroundColor,
+          dropdownColor: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(10),
           items: ["كِلا الفصلين", "الفصل الأول", "الفصل الثاني"]
               .map(

@@ -18,7 +18,7 @@ class LecturesPage extends StatelessWidget {
     final LecturePageControllerimp controller =
         Get.put(LecturePageControllerimp());
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton(
         onPressed: () => lectureaddDialog(
           context,

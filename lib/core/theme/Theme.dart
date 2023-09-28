@@ -5,8 +5,13 @@ class Themes {
   static const String fontFamily = "Tajawal";
 
   static final ThemeData lightTheme = ThemeData(
-    backgroundColor: AppColors.backgroundColor,
+    scaffoldBackgroundColor: AppColors.backgroundColor,
     primaryColor: AppColors.primaryColor,
+    colorScheme: const ColorScheme.light(
+        onPrimary: Color.fromARGB(255, 4, 42, 71),
+        onSecondary: AppColors.primaryColor,
+        onPrimaryContainer: Color.fromARGB(255, 10, 74, 123),
+        onSecondaryContainer: Color.fromARGB(255, 13, 99, 165)),
     secondaryHeaderColor: AppColors.green,
     primaryColorDark: AppColors.cyan,
     primaryColorLight: AppColors.black,
@@ -16,7 +21,8 @@ class Themes {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      colorScheme: const ColorScheme.light(background: AppColors.deepblue),
+      colorScheme: const ColorScheme.light(
+          background: AppColors.deepblue, onBackground: AppColors.white),
       disabledColor: AppColors.grey,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -64,18 +70,24 @@ class Themes {
   );
 
   static final ThemeData darkTheme = ThemeData(
-    backgroundColor: AppColors.black,
+    scaffoldBackgroundColor: AppColors.black,
     primaryColor: AppColors.cyan,
     secondaryHeaderColor: AppColors.green,
     primaryColorDark: AppColors.cyan,
     primaryColorLight: AppColors.white,
+    colorScheme: const ColorScheme.light(
+        onPrimary: Color.fromARGB(255, 10, 144, 144),
+        onSecondary: Color.fromARGB(255, 20, 168, 168),
+        onPrimaryContainer: Color.fromARGB(255, 23, 199, 199),
+        onSecondaryContainer: Color.fromARGB(255, 4, 239, 239)),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.veryDeepCyan),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: const BorderSide(color: AppColors.cyan)),
-      colorScheme: const ColorScheme.light(background: AppColors.black),
+      colorScheme: const ColorScheme.light(
+          background: AppColors.black, onBackground: AppColors.black),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.veryDeepCyan),

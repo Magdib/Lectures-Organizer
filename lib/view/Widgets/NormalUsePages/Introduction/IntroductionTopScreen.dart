@@ -20,7 +20,7 @@ class IntroductionTopScreen extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             width: double.infinity,
-            child: Image.asset('images/intro.jpg'),
+            child: Image.asset('assets/intro.jpg'),
           ),
         ],
       ),

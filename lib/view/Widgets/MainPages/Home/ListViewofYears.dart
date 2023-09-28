@@ -15,6 +15,7 @@ class ListViewofYears extends GetView<HomePageControllerimp> {
     return Expanded(
       child: ListView.builder(
         reverse: true,
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(0),
         itemCount: controller.numberofYears,
         itemBuilder: (context, index) {

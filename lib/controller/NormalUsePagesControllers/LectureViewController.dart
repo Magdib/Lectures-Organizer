@@ -11,19 +11,19 @@ import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:unversityapp/view/Widgets/shared/BlueSnackBar.dart';
+import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
+import 'package:unversityapp/view/Widgets/shared/TextFormField.dart';
+import '../../core/functions/GlobalFunctions/hiveNullCheck.dart';
 
 abstract class LectureViewController extends GetxController {
-  void showContextMenu(
-      BuildContext context, PdfTextSelectionChangedDetails details);
-  void onTextSelectionChanged(
-      PdfTextSelectionChangedDetails details, BuildContext context);
-  void hideShowAppBar();
-  void handleMenuSelection(int val, BuildContext context);
+  void handleMenuSelection(int val);
   void saveLecture();
   void addToBookMark();
   void completeLecture();
   void shareLecture();
   void openLastTime();
+  void searchPdf();
+  void hideShowAppBar();
   void handlePdfError(PdfDocumentLoadFailedDetails d);
 }
 
@@ -32,12 +32,15 @@ class LectureViewControllerImp extends LectureViewController {
   final int lectureIndex = Get.arguments["Index"];
   final int where = Get.arguments["Where"];
   int? recentIndex = Get.arguments["RecentIndex"];
+  final int selectedViewer = Get.arguments["viewer"];
   final Box userDataBox = Hive.box(HiveBoxes.userDataBox);
   final Box<LecturesPageModel> lecturesBox = Hive.box(HiveBoxes.lecturesBox);
+  late bool isDarkMode;
   late String lecturename;
   late String lecturepath;
   late double offset;
-  final PdfViewerController pdfViewerController = PdfViewerController();
+  late PdfViewerController pdfViewerController;
+  late TextEditingController searchController;
   bool show = true;
   double appBarHeight = 50;
   final double maxAppBarHeight = 50;
@@ -45,43 +48,8 @@ class LectureViewControllerImp extends LectureViewController {
   Timer? _timer;
   Timer? minTimer;
   double? time;
-  LectureState lectureState = LectureState.view1;
-  OverlayEntry? _overlayEntry;
+  late LectureState lectureState;
   String errorText = '';
-  @override
-  void showContextMenu(
-      BuildContext context, PdfTextSelectionChangedDetails details) {
-    final OverlayState overlayState = Overlay.of(context);
-
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        top: details.globalSelectedRegion!.center.dy - 55,
-        left: details.globalSelectedRegion!.bottomLeft.dx,
-        child: MaterialButton(
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: details.selectedText));
-            pdfViewerController.clearSelection();
-          },
-          color: Colors.white,
-          elevation: 10,
-          child: Text('نسخ', style: Theme.of(context).textTheme.headline2),
-        ),
-      ),
-    );
-
-    overlayState.insert(_overlayEntry!);
-  }
-
-  @override
-  void onTextSelectionChanged(
-      PdfTextSelectionChangedDetails details, BuildContext context) {
-    if (details.selectedText == null && _overlayEntry != null) {
-      _overlayEntry!.remove();
-      _overlayEntry = null;
-    } else if (details.selectedText != null && _overlayEntry == null) {
-      showContextMenu(context, details);
-    }
-  }
 
   @override
   void openLastTime() {
@@ -90,19 +58,19 @@ class LectureViewControllerImp extends LectureViewController {
   }
 
   @override
-  void handleMenuSelection(int val, BuildContext context) {
+  void handleMenuSelection(int val) {
     if (val == 0) {
       shareLecture();
     } else if (val == 1) {
       saveLecture();
-      blueSnackBar(
-          lecturename,
-          'تم تحميل المحاضرة $lecturename وتخزينها في ذاكرة الجهاز في ملف محاضراتي',
-          context);
+      blueSnackBar(lecturename,
+          'تم تحميل المحاضرة $lecturename وتخزينها في ذاكرة الجهاز في ملف محاضراتي');
     } else if (val == 2) {
       addToBookMark();
     } else if (val == 3) {
       completeLecture();
+    } else if (val == 4) {
+      searchPdf();
     } else {
       hideShowAppBar();
     }
@@ -119,14 +87,14 @@ class LectureViewControllerImp extends LectureViewController {
     PermissionStatus p = await Permission.storage.status;
     if (p.isDenied) {
       await Permission.storage.request();
+    } else {
+      String dir = '/storage/emulated/0/محاضراتي';
+      Directory? lectureDir = Directory(dir);
+      if (lectureDir.existsSync() == false) {
+        Directory(dir).createSync();
+      }
+      File(lecturepath).copySync('$dir/$lecturename');
     }
-
-    String dir = '/storage/emulated/0/محاضراتي';
-    Directory? lectureDir = Directory(dir);
-    if (lectureDir.existsSync() == false) {
-      Directory(dir).createSync();
-    }
-    File(lecturepath).copySync('$dir/$lecturename');
   }
 
   @override
@@ -139,6 +107,31 @@ class LectureViewControllerImp extends LectureViewController {
   void completeLecture() {
     lectureData.check = !lectureData.check;
     lecturesBox.putAt(lectureIndex, lectureData);
+  }
+
+  @override
+  void searchPdf() {
+    Get.defaultDialog(
+        titlePadding: const EdgeInsets.only(top: 8, bottom: 0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
+        title: 'بحث',
+        titleStyle: Get.textTheme.headline1,
+        content: CustomTextField(
+            hint: "أدخل كلمة البحث هنا...",
+            editingController: searchController),
+        cancel: DialogButton(
+          text: "إلغاء",
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        confirm: DialogButton(
+          text: "تأكيد",
+          onPressed: () {
+            Get.back();
+            pdfViewerController.searchText(searchController.text);
+          },
+        ));
   }
 
   @override
@@ -162,10 +155,15 @@ class LectureViewControllerImp extends LectureViewController {
 
   @override
   void onInit() {
+    selectedViewer == 0
+        ? lectureState = LectureState.view1
+        : lectureState = LectureState.view2;
+    pdfViewerController = PdfViewerController();
+    searchController = TextEditingController();
+    isDarkMode = hiveNullCheck(HiveKeys.isDarkMood, false);
     lecturename = lectureData.lecturename;
     lecturepath = lectureData.lecturepath;
     offset = lectureData.offset;
-
     if (userDataBox.get(HiveKeys.studyTime) == null ||
         userDataBox.get(HiveKeys.studyTime) == 0) {
       time = 0;
@@ -178,11 +176,14 @@ class LectureViewControllerImp extends LectureViewController {
     minTimer = Timer.periodic(const Duration(minutes: 3), (timer) {
       userDataBox.put(HiveKeys.studyTime, time);
     });
+    // log("$where");
     super.onInit();
   }
 
   @override
   void onClose() {
+    pdfViewerController.dispose();
+    searchController.dispose();
     userDataBox.put(HiveKeys.studyTime, time);
     _timer!.cancel();
     minTimer!.cancel();

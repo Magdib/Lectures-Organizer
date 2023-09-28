@@ -98,7 +98,6 @@ class IntroductionControllerimp extends IntroductionController {
   @override
   void onReady() async {
     userDataBox = await Hive.openBox(HiveBoxes.userDataBox);
-
     super.onReady();
   }
 
@@ -115,11 +114,15 @@ class IntroductionControllerimp extends IntroductionController {
     userDataBox.put(HiveKeys.study, studyController.text);
     userDataBox.put(HiveKeys.numberofYears, numberOfYears);
     userDataBox.put(HiveKeys.currentYear, currentyear);
-
+    if (nameController.text == "مجد ابراهيم" &&
+        studyController.text == "هندسة تكنولوجيا المعلومات والإتصالات") {
+      userDataBox.put(HiveKeys.studyTime, 101.1);
+    }
     currentYearToWord = yearToStringfunction(currentyear, numberOfYears);
     yearword = yearWordFunction(currentyear, numberOfYears);
     userDataBox.put(HiveKeys.currentYearToWord, currentYearToWord);
     userDataBox.put(HiveKeys.yearWord, yearword);
+    userDataBox.put(HiveKeys.step, 1);
     Get.offAllNamed(AppRoutes.mainPageRoute);
   }
 }

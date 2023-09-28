@@ -24,19 +24,14 @@ class SubjectsPage extends StatelessWidget {
             Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         child: const Icon(Icons.add, color: AppColors.white),
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: customAppBar(controller.pageyear, context),
       body: Padding(
-        padding: const EdgeInsets.only(top: 40, left: 10, right: 10, bottom: 5),
+        padding: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(
-              text: controller.pageyear,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
             Text(
               'نصيحة: ${randomAdviceWords[controller.random]}',
               style:

@@ -17,15 +17,16 @@ class LecturesPageModelAdapter extends TypeAdapter<LecturesPageModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LecturesPageModel(
-        check: fields[4] as bool,
-        oldid: fields[2] as String,
-        lecturepath: fields[3] as String,
-        lecturename: fields[0] as String,
-        lecturetype: fields[1] as String,
-        time: fields[5] as String,
-        bookMarked: fields[6] as bool,
-        offset: fields[7] as double,
-        numberofPages: fields[8] as int);
+      check: fields[4] as bool,
+      oldid: fields[2] as String,
+      lecturepath: fields[3] as String,
+      lecturename: fields[0] as String,
+      lecturetype: fields[1] as String,
+      time: fields[5] as String,
+      bookMarked: fields[6] as bool,
+      offset: fields[7] as double,
+      numberofPages: fields[8] as int?,
+    );
   }
 
   @override

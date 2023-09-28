@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:unversityapp/core/class/enums/LectureState.dart';
 
 import '../../../../controller/NormalUsePagesControllers/LectureViewController.dart';
 import '../../../../core/Constant/AppColors.dart';
@@ -46,8 +47,15 @@ class LecturePopUpMenu extends GetView<LectureViewControllerImp> {
                   ? Icons.check_circle_outlined
                   : Icons.remove_done_outlined,
             )),
+        if (controller.selectedViewer == 0)
+          const PopupMenuItem(
+              value: 4,
+              child: LecturePopUpChild(
+                text: 'بحث',
+                icon: Icons.search_rounded,
+              )),
         const PopupMenuItem(
-            value: 4,
+            value: 5,
             child: LecturePopUpChild(
               text: 'إخفاء الشريط',
               icon: Icons.disabled_by_default_outlined,
@@ -58,10 +66,10 @@ class LecturePopUpMenu extends GetView<LectureViewControllerImp> {
         Icons.more_vert,
         color: AppColors.white,
       ),
-      onSelected: (val) => controller.handleMenuSelection(val as int, context),
+      onSelected: (val) => controller.handleMenuSelection(val as int),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       position: PopupMenuPosition.under,
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }

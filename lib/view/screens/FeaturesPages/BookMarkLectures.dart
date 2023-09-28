@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/core/class/HandleData.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomAppBar.dart';
 import '../../../controller/FeaturePagesControllers/BookMarkController.dart';
 import '../../../core/Constant/AppColors.dart';
-import '../../Widgets/FeaturesPages/FeaturePagesAppBar.dart';
 
 class BookMark extends StatelessWidget {
   const BookMark({Key? key}) : super(key: key);
@@ -12,14 +12,14 @@ class BookMark extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(BookMarkControllerimp());
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: customAppBar('المحفوظات', context, enableActions: false),
         body: Padding(
-            padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const FeaturePagesAppBar(text: 'المحفوظات'),
                   Expanded(
                       child: GetBuilder<BookMarkControllerimp>(
                           builder: (controller) => HandleData(

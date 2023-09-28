@@ -30,7 +30,7 @@ class MainPage extends StatelessWidget {
                       color: AppColors.lightgrey,
                     )
                   ],
-                  backgroundColor: Theme.of(context).backgroundColor,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   animationDuration: const Duration(milliseconds: 500),
                   color: Theme.of(context)
                       .bottomNavigationBarTheme
@@ -38,7 +38,6 @@ class MainPage extends StatelessWidget {
                   index: controller.selectedpage.value,
                   onTap: (page) => controller.bottomBarChangePage(page),
                 )),
-        backgroundColor: Theme.of(context).backgroundColor,
         body: WillPopScope(
           onWillPop: exitDialog,
           child: PageView.builder(

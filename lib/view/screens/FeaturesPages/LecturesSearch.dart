@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/FeaturePagesControllers/LecturesSearchController.dart';
 import '../../Widgets/FeaturesPages/SearchBody.dart';
+import 'package:flutter/src/material/search.dart';
 
 class LecturesSearch extends SearchDelegate {
   LecturesSearch()
@@ -10,7 +13,6 @@ class LecturesSearch extends SearchDelegate {
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.search,
         );
-
   final LectureSearchControllerimp controller = Get.find();
   @override
   ThemeData appBarTheme(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/degreesPageController.dart';
+import 'package:unversityapp/core/Constant/AppColors.dart';
 import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
 
 import '../../../view/Widgets/MainPages/Settings/DegreesPage/DegreeConfirmButton.dart';
@@ -23,6 +24,9 @@ void degreesDialog(BuildContext context) {
             builder: (controller) => Column(
               children: [
                 Slider(
+                  inactiveColor: AppColors.grey,
+                  thumbColor: degreeColor(controller.degree),
+                  activeColor: degreeColor(controller.degree),
                   value: controller.degree,
                   min: 0,
                   max: 100,
@@ -46,4 +50,14 @@ void degreesDialog(BuildContext context) {
         text: "إلغاء الأمر",
         onPressed: () => controller.onWillPop(),
       ));
+}
+
+Color degreeColor(double degree) {
+  return degree < 60
+      ? AppColors.deepred
+      : degree < 80
+          ? AppColors.yellow
+          : degree < 100
+              ? AppColors.green
+              : AppColors.white;
 }

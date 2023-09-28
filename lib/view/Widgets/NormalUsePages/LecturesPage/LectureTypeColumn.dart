@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../../controller/NormalUsePagesControllers/LecturePageController.dart';
 import '../subjectsPage/RadioButton.dart';
 
-class LectureTypeCloumn extends StatelessWidget {
-  const LectureTypeCloumn({
+class LectureTypeColumn extends StatelessWidget {
+  const LectureTypeColumn({
     Key? key,
   }) : super(key: key);
 
@@ -16,17 +16,24 @@ class LectureTypeCloumn extends StatelessWidget {
         GetBuilder<LecturePageControllerimp>(
           builder: (controller) => RadioButton(
             text: "عملي",
-            onTermChanged:
+            onChanged:
                 controller.pr == false ? () => controller.choosePR() : null,
           ),
         ),
         GetBuilder<LecturePageControllerimp>(
           builder: (controller) => RadioButton(
             text: "نظري",
-            onTermChanged:
+            onChanged:
                 controller.vi == false ? () => controller.chooseVI() : null,
           ),
-        )
+        ),
+        GetBuilder<LecturePageControllerimp>(
+          builder: (controller) => RadioButton(
+            text: "دورة",
+            onChanged:
+                controller.ex == false ? () => controller.chooseEX() : null,
+          ),
+        ),
       ],
     );
   }

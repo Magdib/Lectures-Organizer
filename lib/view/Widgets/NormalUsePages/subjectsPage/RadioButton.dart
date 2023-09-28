@@ -4,10 +4,10 @@ class RadioButton extends StatelessWidget {
   const RadioButton({
     Key? key,
     required this.text,
-    required this.onTermChanged,
+    required this.onChanged,
   }) : super(key: key);
   final String text;
-  final void Function()? onTermChanged;
+  final void Function()? onChanged;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,11 +19,11 @@ class RadioButton extends StatelessWidget {
           height: 35,
           shape: Theme.of(context).buttonTheme.shape,
           disabledColor: Theme.of(context).primaryColor,
-          onPressed: onTermChanged,
-          color: Theme.of(context).backgroundColor,
+          onPressed: onChanged,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Icon(
             Icons.check,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
         ),
         const SizedBox(

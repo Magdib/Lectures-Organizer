@@ -1,0 +1,180 @@
+Date : 2023-09-22 16:48:56
+Directory : c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib
+Total : 107 files,  5670 codes, 23 comments, 502 blanks, all 6195 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |        107 |      5,670 |         23 |        502 |      6,195 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                   |        107 |      5,670 |         23 |        502 |      6,195 |
+| . (Files)                                                                                                                           |          1 |         28 |          0 |          4 |         32 |
+| controller                                                                                                                          |         12 |      1,936 |          5 |        180 |      2,121 |
+| controller\FeaturePagesControllers                                                                                                  |          3 |        348 |          1 |         28 |        377 |
+| controller\MainPagesControllers                                                                                                     |          3 |        267 |          1 |         25 |        293 |
+| controller\NormalUsePagesControllers                                                                                                |          5 |      1,168 |          3 |        113 |      1,284 |
+| controller\settingsPagesController                                                                                                  |          1 |        153 |          0 |         14 |        167 |
+| core                                                                                                                                |         33 |      1,034 |          5 |         97 |      1,136 |
+| core\Constant                                                                                                                       |          4 |         76 |          0 |          8 |         84 |
+| core\Constant (Files)                                                                                                               |          2 |         30 |          0 |          4 |         34 |
+| core\Constant\ConstLists                                                                                                            |          1 |         21 |          0 |          2 |         23 |
+| core\Constant\HiveData                                                                                                              |          1 |         25 |          0 |          2 |         27 |
+| core\Routes                                                                                                                         |          1 |         41 |          0 |          3 |         44 |
+| core\class                                                                                                                          |          5 |         74 |          0 |          8 |         82 |
+| core\class (Files)                                                                                                                  |          2 |         71 |          0 |          5 |         76 |
+| core\class\enums                                                                                                                    |          3 |          3 |          0 |          3 |          6 |
+| core\functions                                                                                                                      |         20 |        677 |          5 |         67 |        749 |
+| core\functions (Files)                                                                                                              |          1 |         12 |          0 |          3 |         15 |
+| core\functions\Dialogs                                                                                                              |          6 |        322 |          2 |         23 |        347 |
+| core\functions\ExitAndRefresh                                                                                                       |          5 |         58 |          0 |         16 |         74 |
+| core\functions\GlobalFunctions                                                                                                      |          3 |         45 |          0 |          9 |         54 |
+| core\functions\RichText                                                                                                             |          1 |         24 |          0 |          5 |         29 |
+| core\functions\snackBars                                                                                                            |          1 |          8 |          0 |          3 |         11 |
+| core\functions\validation                                                                                                           |          3 |        208 |          3 |          8 |        219 |
+| core\middleware                                                                                                                     |          1 |         17 |          0 |          3 |         20 |
+| core\services                                                                                                                       |          1 |         20 |          0 |          4 |         24 |
+| core\theme                                                                                                                          |          1 |        129 |          0 |          4 |        133 |
+| model                                                                                                                               |          8 |        202 |         12 |         33 |        247 |
+| model (Files)                                                                                                                       |          2 |         16 |          0 |          3 |         19 |
+| model\HiveAdaptersModels                                                                                                            |          6 |        186 |         12 |         30 |        228 |
+| view                                                                                                                                |         53 |      2,470 |          1 |        188 |      2,659 |
+| view\Widgets                                                                                                                        |         40 |      1,551 |          0 |        141 |      1,692 |
+| view\Widgets\FeaturesPages                                                                                                          |          2 |         87 |          0 |          8 |         95 |
+| view\Widgets\MainPages                                                                                                              |          9 |        341 |          0 |         31 |        372 |
+| view\Widgets\MainPages\Home                                                                                                         |          3 |        127 |          0 |         11 |        138 |
+| view\Widgets\MainPages\Settings                                                                                                     |          5 |        169 |          0 |         18 |        187 |
+| view\Widgets\MainPages\Settings (Files)                                                                                             |          3 |         86 |          0 |         11 |         97 |
+| view\Widgets\MainPages\Settings\DegreesPage                                                                                         |          2 |         83 |          0 |          7 |         90 |
+| view\Widgets\MainPages\Static                                                                                                       |          1 |         45 |          0 |          2 |         47 |
+| view\Widgets\NormalUsePages                                                                                                         |         21 |        865 |          0 |         78 |        943 |
+| view\Widgets\NormalUsePages\Introduction                                                                                            |          4 |        148 |          0 |         16 |        164 |
+| view\Widgets\NormalUsePages\LectureView                                                                                             |          3 |        155 |          0 |         11 |        166 |
+| view\Widgets\NormalUsePages\LecturesPage                                                                                            |          8 |        338 |          0 |         31 |        369 |
+| view\Widgets\NormalUsePages\subjectsPage                                                                                            |          6 |        224 |          0 |         20 |        244 |
+| view\Widgets\shared                                                                                                                 |          8 |        258 |          0 |         24 |        282 |
+| view\screens                                                                                                                        |         13 |        919 |          1 |         47 |        967 |
+| view\screens\FeaturesPages                                                                                                          |          3 |        233 |          0 |         13 |        246 |
+| view\screens\MainPages                                                                                                              |          3 |        217 |          1 |         11 |        229 |
+| view\screens\NormalUsePages                                                                                                         |          5 |        341 |          0 |         17 |        358 |
+| view\screens\SettingsPages                                                                                                          |          2 |        128 |          0 |          6 |        134 |
++-------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                            | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\FeaturePagesControllers\BookMarkController.dart                | Dart     |        119 |          0 |          8 |        127 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\FeaturePagesControllers\LecturesSearchController.dart          | Dart     |        134 |          0 |         11 |        145 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\FeaturePagesControllers\RecentLectureController.dart           | Dart     |         95 |          1 |          9 |        105 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\MainPagesControllers\HomePageController.dart                   | Dart     |         27 |          0 |          6 |         33 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\MainPagesControllers\SettingsController.dart                   | Dart     |        136 |          1 |         11 |        148 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\MainPagesControllers\StaticsPageController.dart                | Dart     |        104 |          0 |          8 |        112 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\NormalUsePagesControllers\LecturePageController.dart           | Dart     |        484 |          0 |         44 |        528 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\NormalUsePagesControllers\LectureViewController.dart           | Dart     |        177 |          0 |         17 |        194 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\NormalUsePagesControllers\MainPageController.dart              | Dart     |         60 |          0 |         10 |         70 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\NormalUsePagesControllers\SubjectsPageController.dart          | Dart     |        334 |          2 |         28 |        364 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\NormalUsePagesControllers\introductionController.dart          | Dart     |        113 |          1 |         14 |        128 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\controller\settingsPagesController\degreesPageController.dart             | Dart     |        153 |          0 |         14 |        167 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\Constant\AppColors.dart                                              | Dart     |         24 |          0 |          2 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\Constant\ConstLists\YearsLists.dart                                  | Dart     |         21 |          0 |          2 |         23 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\Constant\HiveData\HiveKeysBoxes.dart                                 | Dart     |         25 |          0 |          2 |         27 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\Constant\uiNumber.dart                                               | Dart     |          6 |          0 |          2 |          8 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\Routes\routes.dart                                                   | Dart     |         41 |          0 |          3 |         44 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\class\HandleData.dart                                                | Dart     |         24 |          0 |          2 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\class\HandleLectureState.dart                                        | Dart     |         47 |          0 |          3 |         50 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\class\enums\ChooseIconState.dart                                     | Dart     |          1 |          0 |          1 |          2 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\class\enums\DataState.dart                                           | Dart     |          1 |          0 |          1 |          2 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\class\enums\LectureState.dart                                        | Dart     |          1 |          0 |          1 |          2 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\DegreesDialog.dart                                 | Dart     |         47 |          0 |          3 |         50 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\ExitDialog.dart                                    | Dart     |         16 |          0 |          3 |         19 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\LecturesDialogs.dart                               | Dart     |        125 |          0 |          5 |        130 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\NextYearDialog.dart                                | Dart     |         19 |          0 |          3 |         22 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\SettingsDialogs.dart                               | Dart     |         28 |          0 |          2 |         30 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Dialogs\subjectsDialogs.dart                               | Dart     |         87 |          2 |          7 |         96 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\ExitAndRefresh\exitRefreshBookMark.dart                    | Dart     |         10 |          0 |          3 |         13 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\ExitAndRefresh\exitRefreshDegrees.dart                     | Dart     |          7 |          0 |          3 |         10 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\ExitAndRefresh\exitRefreshLecture.dart                     | Dart     |         12 |          0 |          3 |         15 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\ExitAndRefresh\exitRefreshRecent.dart                      | Dart     |         22 |          0 |          4 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\ExitAndRefresh\exitRefreshSubjects.dart                    | Dart     |          7 |          0 |          3 |         10 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\GlobalFunctions\addToRecent.dart                           | Dart     |         22 |          0 |          3 |         25 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\GlobalFunctions\getLectures.dart                           | Dart     |         13 |          0 |          3 |         16 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\GlobalFunctions\hiveNullCheck.dart                         | Dart     |         10 |          0 |          3 |         13 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\Navigation.dart                                            | Dart     |         12 |          0 |          3 |         15 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\RichText\RichTextStyles.dart                               | Dart     |         24 |          0 |          5 |         29 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\snackBars\ErrorSnackBar.dart                               | Dart     |          8 |          0 |          3 |         11 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\validation\CurrentYearFuntions.dart                        | Dart     |        129 |          3 |          4 |        136 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\validation\TermStringToInt.dart                            | Dart     |         32 |          0 |          2 |         34 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\functions\validation\YearStringToInt.dart                            | Dart     |         47 |          0 |          2 |         49 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\middleware\middleware.dart                                           | Dart     |         17 |          0 |          3 |         20 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\services\Services.dart                                               | Dart     |         20 |          0 |          4 |         24 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\core\theme\Theme.dart                                                     | Dart     |        129 |          0 |          4 |        133 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\main.dart                                                                 | Dart     |         28 |          0 |          4 |         32 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\DegreesAdapter.dart                              | Dart     |         10 |          0 |          2 |         12 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\DegreesAdapter.g.dart                            | Dart     |         33 |          4 |          8 |         45 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\LecturesAdapter.dart                             | Dart     |         33 |          0 |          2 |         35 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\LecturesAdapter.g.dart                           | Dart     |         53 |          4 |          8 |         65 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\SubjectsAdapter.dart                             | Dart     |         18 |          0 |          2 |         20 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HiveAdaptersModels\SubjectsAdapter.g.dart                           | Dart     |         39 |          4 |          8 |         51 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\HomePageModel.dart                                                  | Dart     |          4 |          0 |          1 |          5 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\model\StaticsPageModel.dart                                               | Dart     |         12 |          0 |          2 |         14 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\FeaturesPages\FeaturePagesAppBar.dart                        | Dart     |         38 |          0 |          3 |         41 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\FeaturesPages\SearchBody.dart                                | Dart     |         49 |          0 |          5 |         54 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Home\HomePageAppBar.dart                           | Dart     |         33 |          0 |          3 |         36 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Home\HomePageSearchButton.dart                     | Dart     |         49 |          0 |          4 |         53 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Home\ListViewofYears.dart                          | Dart     |         45 |          0 |          4 |         49 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Settings\CustomSettingsListTile.dart               | Dart     |         30 |          0 |          3 |         33 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Settings\DegreesPage\DegreeConfirmButton.dart      | Dart     |         19 |          0 |          3 |         22 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Settings\DegreesPage\DegreesListView.dart          | Dart     |         64 |          0 |          4 |         68 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Settings\GreyDivider.dart                          | Dart     |         15 |          0 |          4 |         19 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Settings\SettingsButton.dart                       | Dart     |         41 |          0 |          4 |         45 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\MainPages\Static\CustomProgress.dart                         | Dart     |         45 |          0 |          2 |         47 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\Introduction\IntroductionDropDownButtons.dart | Dart     |         36 |          0 |          4 |         40 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\Introduction\IntroductionStartButton.dart     | Dart     |         32 |          0 |          4 |         36 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\Introduction\IntroductionTopScreen.dart       | Dart     |         26 |          0 |          4 |         30 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\Introduction\introductionDropDownButton.dart  | Dart     |         54 |          0 |          4 |         58 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LectureView\LecturePopUpChild.dart            | Dart     |         30 |          0 |          3 |         33 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LectureView\LecturePopUpMenu.dart             | Dart     |         72 |          0 |          4 |         76 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LectureView\ViewAppBar.dart                   | Dart     |         53 |          0 |          4 |         57 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\BookMarkIconState.dart           | Dart     |         27 |          0 |          3 |         30 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\ChooseLectureButton.dart         | Dart     |         61 |          0 |          4 |         65 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\LectureConfirmButton.dart        | Dart     |         19 |          0 |          4 |         23 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\LectureDropDownButton.dart       | Dart     |         34 |          0 |          4 |         38 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\LectureTypeColumn.dart           | Dart     |         30 |          0 |          4 |         34 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\LecturesAppBar.dart              | Dart     |         51 |          0 |          4 |         55 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\LecturesListView.dart            | Dart     |         92 |          0 |          4 |         96 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\LecturesPage\SubjectProgress.dart             | Dart     |         24 |          0 |          4 |         28 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\RadioButton.dart                 | Dart     |         38 |          0 |          2 |         40 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\SubjectConfirmButton.dart        | Dart     |         19 |          0 |          4 |         23 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\SubjectEditeButton.dart          | Dart     |         23 |          0 |          3 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\SubjectsList.dart                | Dart     |         78 |          0 |          3 |         81 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\TermButtonsCloumn.dart           | Dart     |         32 |          0 |          4 |         36 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\NormalUsePages\subjectsPage\TermDropDownButton.dart          | Dart     |         34 |          0 |          4 |         38 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\BlueSnackBar.dart                                     | Dart     |          9 |          0 |          3 |         12 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\CustomAppBar.dart                                     | Dart     |         23 |          0 |          2 |         25 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\CustomAppBarButtons.dart                              | Dart     |         37 |          0 |          6 |         43 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\CustomContainer.dart                                  | Dart     |         24 |          0 |          2 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\DialogButton.dart                                     | Dart     |         41 |          0 |          3 |         44 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\EmptyPageContent.dart                                 | Dart     |         24 |          0 |          2 |         26 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\FilterTextFiled.dart                                  | Dart     |         46 |          0 |          3 |         49 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\Widgets\shared\TextFormField.dart                                    | Dart     |         54 |          0 |          3 |         57 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\FeaturesPages\BookMarkLectures.dart                          | Dart     |         88 |          0 |          3 |         91 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\FeaturesPages\LecturesSearch.dart                            | Dart     |         64 |          0 |          7 |         71 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\FeaturesPages\RecentLectures.dart                            | Dart     |         81 |          0 |          3 |         84 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\MainPages\HomePage.dart                                      | Dart     |         60 |          1 |          4 |         65 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\MainPages\Settings.dart                                      | Dart     |         76 |          0 |          2 |         78 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\MainPages\Statistics.dart                                    | Dart     |         81 |          0 |          5 |         86 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\NormalUsePages\Introduction.dart                             | Dart     |         73 |          0 |          3 |         76 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\NormalUsePages\LecturesPage.dart                             | Dart     |         81 |          0 |          3 |         84 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\NormalUsePages\MainPage.dart                                 | Dart     |         50 |          0 |          4 |         54 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\NormalUsePages\SubjectsPage.dart                             | Dart     |         74 |          0 |          3 |         77 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\NormalUsePages\lectureView.dart                              | Dart     |         63 |          0 |          4 |         67 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\SettingsPages\AboutApp.dart                                  | Dart     |         77 |          0 |          4 |         81 |
+| c:\Users\Magd\Documents\Flutter Projects\unversityapp\lib\view\screens\SettingsPages\DegreesPage.dart                               | Dart     |         51 |          0 |          2 |         53 |
+| Total                                                                                                                               |          |      5,670 |         23 |        502 |      6,195 |
++-------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

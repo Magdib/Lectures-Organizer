@@ -17,10 +17,10 @@ class LectureDropDownButton extends StatelessWidget {
           isDense: true,
           iconEnabledColor: AppColors.cyan,
           style: Theme.of(context).textTheme.headline6,
-          menuMaxHeight: 180,
-          dropdownColor: Theme.of(context).backgroundColor,
+          menuMaxHeight: 100,
+          dropdownColor: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(10),
-          items: ["الكل", "نظري", "عملي"]
+          items: ["الكل", "نظري", "عملي", "دورة"]
               .map(
                 (e) => DropdownMenuItem(
                   value: e,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unversityapp/core/Constant/AppColors.dart';
 import 'package:unversityapp/core/class/HandleData.dart';
 import 'package:unversityapp/core/functions/Dialogs/LecturesDialogs.dart';
 
@@ -25,6 +24,7 @@ class LecturesListView extends StatelessWidget {
                   whatisempty1: 'محاضرة',
                 ),
                 notEmptyWidget: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: controller.currentLectures.length,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -53,21 +53,25 @@ class LecturesListView extends StatelessWidget {
                                 ? () => controller.completeLecture(index)
                                 : null,
                             child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Text(
-                                  controller.currentLectures[index].lecturename
-                                      .replaceAll('.pdf', ''),
-                                  style: controller
-                                              .currentLectures[index].check ==
-                                          false
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .headline1!
-                                          .copyWith(fontSize: 15)
-                                      : Theme.of(context).textTheme.bodyText1,
-                                  maxLines: 1,
-                                ),
+                              child: Text(
+                                controller.currentLectures[index].lecturename
+                                            .length >
+                                        34
+                                    ? controller
+                                        .currentLectures[index].lecturename
+                                        .replaceRange(30, null, "")
+                                    : controller
+                                        .currentLectures[index].lecturename
+                                        .replaceAll('.pdf', ''),
+                                style:
+                                    controller.currentLectures[index].check ==
+                                            false
+                                        ? Theme.of(context)
+                                            .textTheme
+                                            .headline1!
+                                            .copyWith(fontSize: 15)
+                                        : Theme.of(context).textTheme.bodyText1,
+                                maxLines: 1,
                               ),
                             ),
                           ),
@@ -77,7 +81,7 @@ class LecturesListView extends StatelessWidget {
                             top: 2.5,
                             child: IconButton(
                                 onPressed: () =>
-                                    controller.addToBookMark(index, context),
+                                    controller.addToBookMark(index),
                                 iconSize: 25,
                                 color: Theme.of(context).primaryColor,
                                 splashRadius: UINumbers.iconButtonRadius,

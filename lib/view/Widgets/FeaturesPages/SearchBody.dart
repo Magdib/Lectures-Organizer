@@ -6,7 +6,7 @@ import '../../../controller/FeaturePagesControllers/LecturesSearchController.dar
 
 import '../../../model/HiveAdaptersModels/LecturesAdapter.dart';
 
-class SearchBody extends StatelessWidget {
+class SearchBody extends GetView<LectureSearchControllerimp> {
   const SearchBody({
     super.key,
     required this.query,
@@ -17,37 +17,40 @@ class SearchBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: GetBuilder<LectureSearchControllerimp>(
-          builder: (controller) => HandleData(
-                dataState: controller.dataState,
-                emptyWidget: Center(
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    'لا يوجد محاضرات',
-                    style: Get.textTheme.headline1!.copyWith(fontSize: 17),
+    return WillPopScope(
+      onWillPop: () => controller.willPopSearch(),
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: GetBuilder<LectureSearchControllerimp>(
+            builder: (controller) => HandleData(
+                  dataState: controller.dataState,
+                  emptyWidget: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      'لا يوجد محاضرات',
+                      style: Get.textTheme.headline1!.copyWith(fontSize: 17),
+                    ),
                   ),
-                ),
-                notEmptyWidget: ListView.builder(
-                    itemCount: query == ''
-                        ? controller.lectures.length
-                        : controller.filterdLectrues.length,
-                    itemBuilder: (context, index) => InkWell(
-                          onTap: () => controller.openLecture(index, query),
-                          child: Container(
-                              padding: const EdgeInsets.all(20),
-                              child: query == ''
-                                  ? Text(
-                                      controller.lectures[index].lecturename,
-                                      style: Get.textTheme.headline1!
-                                          .copyWith(fontSize: 17),
-                                    )
-                                  : Text(filtredLectures[index].lecturename,
-                                      style: Get.textTheme.headline1!
-                                          .copyWith(fontSize: 17))),
-                        )),
-              )),
+                  notEmptyWidget: ListView.builder(
+                      itemCount: query == ''
+                          ? controller.lectures.length
+                          : controller.filterdLectrues.length,
+                      itemBuilder: (context, index) => InkWell(
+                            onTap: () => controller.openLecture(index, query),
+                            child: Container(
+                                padding: const EdgeInsets.all(20),
+                                child: query == ''
+                                    ? Text(
+                                        controller.lectures[index].lecturename,
+                                        style: Get.textTheme.headline1!
+                                            .copyWith(fontSize: 17),
+                                      )
+                                    : Text(filtredLectures[index].lecturename,
+                                        style: Get.textTheme.headline1!
+                                            .copyWith(fontSize: 17))),
+                          )),
+                )),
+      ),
     );
   }
 }

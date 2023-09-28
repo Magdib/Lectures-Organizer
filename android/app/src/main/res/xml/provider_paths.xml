@@ -1,0 +1,6 @@
+<paths>
+    <external-path name="external_files" path="." />
+</paths>
+```
+
+This configuration allows the file provider to grant access to files in the external storage.

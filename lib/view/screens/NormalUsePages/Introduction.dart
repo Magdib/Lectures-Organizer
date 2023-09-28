@@ -32,7 +32,7 @@ class Introduction extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline1,
                     ),
                     CustomTextField(
-                      hint: 'أدخل اسمك هنا...  (ثلاث أحرف على الأقل)',
+                      hint: 'أدخل اسمك هنا...  (حرفين على الأقل)',
                       maxchar: 14,
                       editingController: controller.nameController,
                       onchange: (value) => controller.enableDropDownButton(),

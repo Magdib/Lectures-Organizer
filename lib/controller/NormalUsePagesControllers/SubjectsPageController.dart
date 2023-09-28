@@ -332,11 +332,8 @@ class SubjectsPageControllerimp extends SubjectsPageController {
   @override
   void onReady() async {
     subjectsBox = await Hive.openBox(HiveBoxes.subjectsBox);
-
     lecturesBox = await Hive.openBox(HiveBoxes.lecturesBox);
-
     refreshData();
-
     super.onReady();
   }
 

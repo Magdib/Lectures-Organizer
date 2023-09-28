@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:unversityapp/controller/NormalUsePagesControllers/LectureViewController.dart';
+import 'package:unversityapp/view/Widgets/NormalUsePages/LectureView/ViewAppBar.dart';
 
 import '../Constant/AppColors.dart';
 import 'enums/LectureState.dart';
@@ -31,8 +34,16 @@ class HandleLectureState extends StatelessWidget {
               ),
             ),
           )
-        : lectureState == LectureState.view1
-            ? view1
-            : view2;
+        : Stack(
+            children: [
+              GetBuilder<LectureViewControllerImp>(
+                builder: (controller) => Padding(
+                  padding: EdgeInsets.only(top: controller.appBarHeight),
+                  child: lectureState == LectureState.view1 ? view1 : view2,
+                ),
+              ),
+              const ViewAppBar()
+            ],
+          );
   }
 }

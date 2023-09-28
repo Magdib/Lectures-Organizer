@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/FeaturePagesControllers/RecentLectureController.dart';
 import 'package:unversityapp/core/class/HandleData.dart';
-import 'package:unversityapp/view/Widgets/FeaturesPages/FeaturePagesAppBar.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomAppBar.dart';
 
 class RecentLectures extends StatelessWidget {
   const RecentLectures({Key? key}) : super(key: key);
@@ -11,14 +11,15 @@ class RecentLectures extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(RecentLecturesControllerimp());
     return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar:
+            customAppBar('المحاضرات الأخيرة', context, enableActions: false),
         body: Padding(
-            padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const FeaturePagesAppBar(text: 'المحاضرات الأخيرة'),
                   Expanded(
                       child: GetBuilder<RecentLecturesControllerimp>(
                           builder: (controller) => HandleData(
@@ -33,8 +34,12 @@ class RecentLectures extends StatelessWidget {
                                         .copyWith(fontSize: 20),
                                   ),
                                 ),
-                                notEmptyWidget: ListView.builder(
-                                    reverse: true,
+                                notEmptyWidget: GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            mainAxisSpacing: 10,
+                                            crossAxisSpacing: 10),
                                     physics: const BouncingScrollPhysics(),
                                     itemCount: controller.recentLectures.length,
                                     itemBuilder: (context, index) => Padding(
@@ -47,43 +52,28 @@ class RecentLectures extends StatelessWidget {
                                             color: Theme.of(context)
                                                 .buttonTheme
                                                 .colorScheme!
-                                                .background,
+                                                .onBackground,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(30),
                                                 side: BorderSide(
                                                     color: Theme.of(context)
                                                         .primaryColor)),
-                                            padding: const EdgeInsets.only(
-                                                bottom: 15),
                                             minWidth: double.infinity,
                                             onPressed: () =>
                                                 controller.openLecture(index),
-                                            child: ListTile(
-                                              title: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10.0),
-                                                child: Text(
-                                                  'المحاضرة: ${controller.recentLectures[index].lecturename.replaceAll(".pdf", '')}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline3,
-                                                ),
-                                              ),
-                                              subtitle: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 4.0),
-                                                child: Text(
-                                                  'تاريخ الدراسة: ${controller.recentLectures[index].time.toString().replaceRange(10, null, '')}\nوقت الدراسة: ${controller.recentLectures[index].time.toString().replaceRange(0, 10, '').replaceRange(9, null, '')}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1!
-                                                      .copyWith(
-                                                          fontSize: 17,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                ),
-                                              ),
+                                            child: Text(
+                                              controller.recentLectures[index]
+                                                  .lecturename
+                                                  .replaceAll(".pdf", ''),
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline3!
+                                                  .copyWith(
+                                                      fontSize: 16,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
                                             ),
                                           ),
                                         )),

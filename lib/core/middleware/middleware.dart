@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 import '../Constant/HiveData/HiveKeysBoxes.dart';
 import '../Routes/routes.dart';
@@ -12,8 +11,13 @@ class MiddleWare extends GetMiddleware {
   Services myServices = Get.find();
   @override
   RouteSettings? redirect(String? route) {
-    if (myServices.userDataBox!.get(HiveKeys.name) != null) {
-      return const RouteSettings(name: AppRoutes.mainPageRoute);
-    } else {}
+    switch (myServices.userDataBox!.get(HiveKeys.step)) {
+      case 1:
+        return const RouteSettings(name: AppRoutes.mainPageRoute);
+      case 2:
+        return const RouteSettings(name: AppRoutes.fastModePageRoute);
+      default:
+        return null;
+    }
   }
 }

@@ -16,7 +16,7 @@ class RadioButtonsCloumn extends StatelessWidget {
         GetBuilder<SubjectsPageControllerimp>(
           builder: (controller) => RadioButton(
             text: 'الفصل الأول',
-            onTermChanged: controller.isFirstTerm == false
+            onChanged: controller.isFirstTerm == false
                 ? () => controller.chooseFirstTerm()
                 : null,
           ),
@@ -24,7 +24,7 @@ class RadioButtonsCloumn extends StatelessWidget {
         GetBuilder<SubjectsPageControllerimp>(
           builder: (controller) => RadioButton(
             text: " الفصل الثاني",
-            onTermChanged: controller.isSecondeTerm == false
+            onChanged: controller.isSecondeTerm == false
                 ? () => controller.chooseSecondTerm()
                 : null,
           ),

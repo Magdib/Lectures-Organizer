@@ -23,6 +23,7 @@ class SubjectsList extends StatelessWidget {
                 whatisempty1: 'مادة',
               ),
               notEmptyWidget: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: MaterialButton(

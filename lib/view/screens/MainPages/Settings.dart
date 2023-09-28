@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unversityapp/core/Routes/routes.dart';
 import '../../../controller/MainPagesControllers/SettingsController.dart';
 import '../../../core/Constant/AppColors.dart';
 import '../../Widgets/MainPages/Settings/CustomSettingsListTile.dart';
 import '../../Widgets/MainPages/Settings/GreyDivider.dart';
 import '../../Widgets/MainPages/Settings/SettingsButton.dart';
-import '../SettingsPages/DegreesPage.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -54,25 +52,22 @@ class SettingsPage extends StatelessWidget {
                         controller.changeTheme(val, context);
                       },
                       inactiveTrackColor: AppColors.yellow,
-                      inactiveThumbImage: const AssetImage('images/sun.jpg'),
-                      activeThumbImage: const AssetImage('images/moon.webp'),
+                      inactiveThumbImage: const AssetImage('assets/sun.jpg'),
+                      activeThumbImage: const AssetImage('assets/moon.webp'),
                       activeColor: AppColors.black,
                       activeTrackColor: AppColors.cyan,
                     )),
               ),
-              SettingsButton(
-                  text: 'إضافة درجات المواد',
-                  icon: Icons.menu_book,
-                  onPressed: () => Get.to(() => const DergreePage())),
-              SettingsButton(
-                  text: 'الترفع إلى السنة التالية',
-                  icon: Icons.arrow_circle_up_rounded,
-                  onPressed: () => controller.nextYearMethod(context)),
-              SettingsButton(
-                text: 'حول التطبيق',
-                icon: Icons.info_outline,
-                onPressed: () => Get.toNamed(AppRoutes.aboutAppRoute),
-              ),
+              ListView.builder(
+                itemCount: controller.settingsFeatures.length,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => SettingsButton(
+                    text: controller.settingsFeatures[index]['text'],
+                    icon: controller.settingsFeatures[index]['icon'],
+                    onPressed: controller.settingsFeatures[index]['function']),
+              )
             ],
           ),
         ),
