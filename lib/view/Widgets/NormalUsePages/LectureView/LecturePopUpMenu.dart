@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unversityapp/core/class/enums/LectureState.dart';
 
 import '../../../../controller/NormalUsePagesControllers/LectureViewController.dart';
 import '../../../../core/Constant/AppColors.dart';

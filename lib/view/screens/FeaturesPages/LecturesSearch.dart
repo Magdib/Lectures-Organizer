@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/FeaturePagesControllers/LecturesSearchController.dart';
 import '../../Widgets/FeaturesPages/SearchBody.dart';
-import 'package:flutter/src/material/search.dart';
 
 class LecturesSearch extends SearchDelegate {
   LecturesSearch()
