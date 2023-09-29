@@ -16,16 +16,14 @@ class MyAudioHandler extends BaseAudioHandler
   Duration? playposition;
   @override
   Future<void> play() async {
-    playbackState.add(playbackState.value.copyWith(controls: [
-      MediaControl.skipToPrevious,
-      MediaControl.pause,
-      MediaControl.stop,
-      MediaControl.skipToNext,
-    ], playing: true));
-
     if (musicBox.isNotEmpty) {
+      playbackState.add(playbackState.value.copyWith(controls: [
+        MediaControl.skipToPrevious,
+        MediaControl.pause,
+        MediaControl.stop,
+        MediaControl.skipToNext,
+      ], playing: true));
       songsPaths = musicBox.values.toList();
-
       mediaItem.add(MediaItem(
           id: "$song",
           title: basename(songsPaths[song]),
