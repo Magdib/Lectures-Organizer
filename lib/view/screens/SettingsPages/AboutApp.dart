@@ -29,7 +29,7 @@ class AboutApp extends StatelessWidget {
                 richTextDBlack(context, "تاريخ آخر تحديث: "),
                 richTextBlack(context, '28/9/2023\n\n'),
                 richTextDBlack(context, "الإصدار: "),
-                richTextBlack(context, "v1.0.1\n\n"),
+                richTextBlack(context, "v1.1.0\n\n"),
                 richTextDBlack(context, "الجودة الحالية: "),
                 richTextBlack(context, "70%")
               ])),
