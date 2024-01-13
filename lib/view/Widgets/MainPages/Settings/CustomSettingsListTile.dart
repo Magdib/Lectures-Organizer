@@ -6,16 +6,19 @@ class CustomSettingsListTile extends StatelessWidget {
     Key? key,
     required this.title,
     this.trail,
+    this.contentPadding,
   }) : super(key: key);
 
   final String title;
   final Widget? trail;
+  final EdgeInsetsGeometry? contentPadding;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CustomContainer(
           child: ListTile(
+            contentPadding: contentPadding,
             title: Text(
               title,
               style: Theme.of(context).textTheme.bodyText1,

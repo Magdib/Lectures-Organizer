@@ -5,6 +5,7 @@ import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/theme/Theme.dart';
 import 'core/Routes/routes.dart';
 import 'core/services/Services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +22,15 @@ class LecturesOrganaizer extends StatelessWidget {
         Hive.box(HiveBoxes.userDataBox).get(HiveKeys.isDarkMood);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      textDirection: TextDirection.rtl,
+      locale: const Locale("ar"),
       getPages: routes,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      localeResolutionCallback: (deviceLocale, supportedLocales) =>
+          const Locale("ar"),
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,
       themeMode: isDarkMood == true ? ThemeMode.dark : ThemeMode.light,

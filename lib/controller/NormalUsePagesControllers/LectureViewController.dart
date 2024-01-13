@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/class/enums/LectureState.dart';
+import 'package:unversityapp/core/functions/GlobalFunctions/get_save_folder.dart';
+import 'package:unversityapp/core/functions/snackBars/ErrorSnackBar.dart';
 import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -63,8 +65,6 @@ class LectureViewControllerImp extends LectureViewController {
       shareLecture();
     } else if (val == 1) {
       saveLecture();
-      blueSnackBar(lecturename,
-          'تم تحميل المحاضرة $lecturename وتخزينها في ذاكرة الجهاز في ملف محاضراتي');
     } else if (val == 2) {
       addToBookMark();
     } else if (val == 3) {
@@ -84,16 +84,22 @@ class LectureViewControllerImp extends LectureViewController {
 
   @override
   void saveLecture() async {
-    PermissionStatus p = await Permission.storage.status;
-    if (p.isDenied) {
-      await Permission.storage.request();
-    } else {
-      String dir = '/storage/emulated/0/محاضراتي';
-      Directory? lectureDir = Directory(dir);
-      if (lectureDir.existsSync() == false) {
-        Directory(dir).createSync();
+    try {
+      PermissionStatus p = await Permission.storage.status;
+      if (p.isDenied) {
+        await Permission.storage.request();
+      } else {
+        String dir = await getSavedLecturesSaveFolder();
+        Directory? lectureDir = Directory(dir);
+        if (lectureDir.existsSync() == false) {
+          Directory(dir).createSync();
+        }
+        File(lecturepath).copySync('$dir/$lecturename');
+        blueSnackBar(lecturename,
+            'تم تحميل المحاضرة $lecturename وتخزينها في ذاكرة الجهاز');
       }
-      File(lecturepath).copySync('$dir/$lecturename');
+    } catch (e) {
+      errorSnackBar("خطأ", "الخدمة غير مدعومة في نظامك");
     }
   }
 

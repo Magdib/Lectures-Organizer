@@ -85,7 +85,6 @@ class SettingsControllerimp extends SettingsController {
     final pdf = pw.Document();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowedExtensions: ['png', "jpg", "jpeg"],
-        initialDirectory: "/storage/emulated/0/DCIM",
         type: FileType.custom,
         allowMultiple: true);
     if (result != null) {
