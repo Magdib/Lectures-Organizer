@@ -46,6 +46,7 @@ class SettingsPage extends StatelessWidget {
                     title: controller.darkmood == false
                         ? 'الوضع النهاري'
                         : 'الوضع الليلي',
+                    contentPadding: const EdgeInsets.only(left: 7.5, right: 15),
                     trail: Switch(
                       value: controller.darkmood!,
                       onChanged: (val) {

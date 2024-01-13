@@ -7,6 +7,9 @@ class Themes {
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.backgroundColor,
     primaryColor: AppColors.primaryColor,
+    dialogTheme: const DialogTheme(
+      elevation: 0,
+    ),
     colorScheme: const ColorScheme.light(
         onPrimary: Color.fromARGB(255, 4, 42, 71),
         onSecondary: AppColors.primaryColor,
@@ -25,6 +28,8 @@ class Themes {
           background: AppColors.deepblue, onBackground: AppColors.white),
       disabledColor: AppColors.grey,
     ),
+    appBarTheme: const AppBarTheme(scrolledUnderElevation: 0),
+    popupMenuTheme: const PopupMenuThemeData(elevation: 0),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.deepblue),
     sliderTheme: const SliderThemeData(
@@ -95,6 +100,11 @@ class Themes {
       thumbColor: AppColors.cyan,
       activeTrackColor: AppColors.cyan,
     ),
+    appBarTheme: const AppBarTheme(scrolledUnderElevation: 0),
+    dialogTheme: const DialogTheme(
+      elevation: 0,
+    ),
+    popupMenuTheme: const PopupMenuThemeData(elevation: 0),
     dialogBackgroundColor: AppColors.lightBlack,
     textTheme: const TextTheme(
       headline1: TextStyle(

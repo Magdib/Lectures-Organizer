@@ -504,13 +504,11 @@ class LecturePageControllerimp extends LecturePageController {
   void onReady() async {
     recentBox = await Hive.openBox(HiveBoxes.recentBox);
     refreshData(0);
-
     if (recentBox.isNotEmpty) {
       for (int i = 0; i < recentBox.length; i++) {
         recentLectures.add(recentBox.getAt(i)!);
       }
     }
-
     numberofLectures = currentLectures.length;
     if (currentLectures.isNotEmpty) {
       dataState = DataState.notEmpty;
