@@ -7,7 +7,6 @@ import 'package:hive/hive.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/class/enums/LectureState.dart';
-import 'package:unversityapp/core/functions/GlobalFunctions/get_save_folder.dart';
 import 'package:unversityapp/core/functions/snackBars/ErrorSnackBar.dart';
 import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -89,7 +88,7 @@ class LectureViewControllerImp extends LectureViewController {
       if (p.isDenied) {
         await Permission.storage.request();
       } else {
-        String dir = await getSavedLecturesSaveFolder();
+        String dir = "/storage/emulated/0/Download/منسق المحاضرات";
         Directory? lectureDir = Directory(dir);
         if (lectureDir.existsSync() == false) {
           Directory(dir).createSync();

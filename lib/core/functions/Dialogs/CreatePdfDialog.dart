@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:unversityapp/core/functions/GlobalFunctions/get_save_folder.dart';
 import 'package:unversityapp/core/functions/snackBars/ErrorSnackBar.dart';
 import 'package:unversityapp/view/Widgets/shared/BlueSnackBar.dart';
 import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
@@ -33,14 +33,18 @@ createPdfDialog(pw.Document pdf) {
         text: "تأكيد",
         onPressed: () async {
           PermissionStatus p = await Permission.storage.status;
+          PermissionStatus mes = await Permission.manageExternalStorage.status;
           Get.back();
           if (p.isDenied) {
             await Permission.storage.request();
           }
+          if (mes.isDenied) {
+            await Permission.manageExternalStorage.request();
+          }
           if (pdfNameController.text.isEmpty) {
             pdfNameController.text = "Test";
           }
-          String saveFolder = await getMyLecturesSaveFolder();
+          String saveFolder = "/storage/emulated/0/Download/منسق المحاضرات/";
           try {
             final file = File('$saveFolder${pdfNameController.text}.pdf');
             Directory? lectureDir = Directory(saveFolder);
@@ -52,7 +56,9 @@ createPdfDialog(pw.Document pdf) {
                 "تم إنشاء الملف ${pdfNameController.text}.pdf وحفظه في ذاكرة الجهاز سيتم فتح الملف بعد قليل...",
                 duration: const Duration(seconds: 5));
             await Future.delayed(const Duration(seconds: 6));
-            await OpenFile.open('$saveFolder${pdfNameController.text}.pdf');
+            OpenResult openResult =
+                await OpenFile.open('$saveFolder${pdfNameController.text}.pdf');
+            log(openResult.message);
           } catch (e) {
             errorSnackBar("خطأ", "الخدمة غير مدعومة في نظامك");
           }
