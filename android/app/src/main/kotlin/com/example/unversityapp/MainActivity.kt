@@ -1,4 +1,4 @@
-package com.magdibrahem.unversityapp
+package com.teeeestwww.shar
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -4,13 +4,13 @@ part 'LecturesAdapter.g.dart';
 @HiveType(typeId: 7)
 class LecturesPageModel {
   @HiveField(0)
-  final String lecturename;
+  String lecturename;
   @HiveField(1)
   final String lecturetype;
   @HiveField(2)
   String oldid;
   @HiveField(3)
-  final String lecturepath;
+  String lecturepath;
   @HiveField(4)
   bool check;
   @HiveField(5)
@@ -21,6 +21,8 @@ class LecturesPageModel {
   double offset;
   @HiveField(8)
   int? numberofPages;
+  @HiveField(9)
+  bool chosen;
   LecturesPageModel(
       {required this.check,
       required this.oldid,
@@ -30,5 +32,6 @@ class LecturesPageModel {
       required this.time,
       required this.bookMarked,
       required this.offset,
-      required this.numberofPages});
+      required this.numberofPages,
+      this.chosen = false});
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'CustomAppBarButtons.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
 }
 
 AppBar customAppBar(String text, BuildContext context,
-    {bool enableActions = true}) {
+    {bool enableActions = true, bool enableLeading = true}) {
   return AppBar(
       title: Text(
         text,
@@ -35,15 +35,17 @@ AppBar customAppBar(String text, BuildContext context,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
       centerTitle: true,
-      leading: enableActions
-          ? const GoToBookMarkButton()
-          : IconButton(
-              onPressed: () => Get.back(),
-              splashRadius: UINumbers.iconButtonRadius,
-              icon: Icon(
-                Icons.arrow_back,
-                color: Theme.of(context).primaryColor,
-                size: 30,
-              )),
+      leading: enableLeading
+          ? enableActions
+              ? const GoToBookMarkButton()
+              : IconButton(
+                  onPressed: () => Get.back(),
+                  splashRadius: StaticData.iconButtonRadius,
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryColor,
+                    size: 30,
+                  ))
+          : const SizedBox(),
       actions: enableActions ? const [GoToRecentButton()] : null);
 }

@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
                     trail: Switch(
                       value: controller.darkmood!,
                       onChanged: (val) {
-                        controller.changeTheme(val, context);
+                        controller.changeTheme(val);
                       },
                       inactiveTrackColor: AppColors.yellow,
                       inactiveThumbImage: const AssetImage('assets/sun.jpg'),

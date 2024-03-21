@@ -37,6 +37,7 @@ class MusicControllerimp extends MusicController {
     musicPathBox = await Hive.openBox(HiveBoxes.musicPathBox);
     songs = await _audioQuery.querySongs();
     songs.removeWhere((song) => song.isNotification!);
+    songs.removeWhere((song) => song.displayName.contains(".opus"));
     songs.isNotEmpty
         ? dataState = DataState.notEmpty
         : dataState = DataState.empty;

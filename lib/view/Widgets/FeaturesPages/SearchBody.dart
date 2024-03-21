@@ -4,7 +4,7 @@ import 'package:unversityapp/core/class/HandleData.dart';
 
 import '../../../controller/FeaturePagesControllers/LecturesSearchController.dart';
 
-import '../../../model/HiveAdaptersModels/LecturesAdapter.dart';
+import '../../../model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 
 class SearchBody extends GetView<LectureSearchControllerimp> {
   const SearchBody({

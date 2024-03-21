@@ -9,7 +9,7 @@ import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import 'package:unversityapp/core/services/Services.dart';
 
 import '../../core/Routes/routes.dart';
-import '../../model/HiveAdaptersModels/LecturesAdapter.dart';
+import '../../model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 
 abstract class RecentLecturesController extends GetxController {
   void openLecture(int index);

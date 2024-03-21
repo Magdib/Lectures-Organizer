@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/NormalUsePagesControllers/LectureViewController.dart';
 import 'package:unversityapp/core/Constant/AppColors.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/core/functions/ExitAndRefresh/exitRefreshBookMark.dart';
 import 'package:unversityapp/core/functions/ExitAndRefresh/exitRefreshLecture.dart';
 import 'package:unversityapp/core/functions/ExitAndRefresh/exitRefreshRecent.dart';
@@ -39,7 +39,7 @@ class ViewAppBar extends StatelessWidget {
                   color: AppColors.white,
                 )),
             SizedBox(
-              width: UINumbers.deviceWidth - 120,
+              width: StaticData.deviceWidth - 120,
               child: Text(
                 controller.lecturename.replaceAll('.pdf', ''),
                 overflow: TextOverflow.ellipsis,

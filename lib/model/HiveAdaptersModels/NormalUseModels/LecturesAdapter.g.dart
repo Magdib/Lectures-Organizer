@@ -26,13 +26,14 @@ class LecturesPageModelAdapter extends TypeAdapter<LecturesPageModel> {
       bookMarked: fields[6] as bool,
       offset: fields[7] as double,
       numberofPages: fields[8] as int?,
+      chosen: fields[9] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, LecturesPageModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.lecturename)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class LecturesPageModelAdapter extends TypeAdapter<LecturesPageModel> {
       ..writeByte(7)
       ..write(obj.offset)
       ..writeByte(8)
-      ..write(obj.numberofPages);
+      ..write(obj.numberofPages)
+      ..writeByte(9)
+      ..write(obj.chosen);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/MainPagesControllers/SettingsController.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/view/Widgets/NormalUsePages/subjectsPage/RadioButton.dart';
 
 selectViewerDialog() {
@@ -15,15 +16,19 @@ selectViewerDialog() {
       title: 'نوع المشغّل',
       titleStyle: Get.textTheme.headline1,
       content: GetBuilder<SettingsControllerimp>(
-        builder: (controller) => ListView.builder(
-          itemCount: 3,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) => RadioButton(
-              text: viewerTexts[index],
-              onChanged: controller.selectedViewer == index
-                  ? null
-                  : () => controller.changeViewer(index)),
+        builder: (controller) => SizedBox(
+          height: 140,
+          width: StaticData.deviceWidth,
+          child: ListView.builder(
+            itemCount: viewerTexts.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => RadioButton(
+                text: viewerTexts[index],
+                onChanged: controller.selectedViewer == index
+                    ? null
+                    : () => controller.changeViewer(index)),
+          ),
         ),
       ));
 }

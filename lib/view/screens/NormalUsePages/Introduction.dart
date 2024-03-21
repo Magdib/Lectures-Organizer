@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/NormalUsePagesControllers/introductionController.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import '../../../core/Constant/AppColors.dart';
 import '../../Widgets/NormalUsePages/Introduction/IntroductionDropDownButtons.dart';
 import '../../Widgets/NormalUsePages/Introduction/IntroductionStartButton.dart';
 import '../../Widgets/NormalUsePages/Introduction/IntroductionTopScreen.dart';
-import '../../Widgets/shared/TextFormField.dart';
+import '../../Widgets/shared/CustomTextField.dart';
 
 class Introduction extends StatelessWidget {
   Introduction({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class Introduction extends StatelessWidget {
                     ),
                     CustomTextField(
                       hint: 'أدخل اسمك هنا...  (حرفين على الأقل)',
-                      maxchar: 14,
+                      maxchar: StaticData.nameMaxChar,
                       editingController: controller.nameController,
                       onchange: (value) => controller.enableDropDownButton(),
                     ),
@@ -43,7 +44,7 @@ class Introduction extends StatelessWidget {
                     CustomTextField(
                       hint:
                           'أدخل الفرع الذي تدرسه هنا... (أربع أحرف على الأقل)',
-                      maxchar: 36,
+                      maxchar: StaticData.studyMaxChar,
                       editingController: controller.studyController,
                       onchange: (value) => controller.enableDropDownButton(),
                     ),

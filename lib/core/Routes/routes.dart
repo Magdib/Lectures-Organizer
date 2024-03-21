@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/FastModeController.dart';
 import 'package:unversityapp/controller/settingsPagesController/ProfileController.dart';
+import 'package:unversityapp/controller/settingsPagesController/advancedFeaturesController.dart';
+import 'package:unversityapp/controller/settingsPagesController/advancedfeaturescontrollers/create_exam_controller.dart';
+import 'package:unversityapp/controller/settingsPagesController/app_data_controllers/app_data_controller.dart';
+import 'package:unversityapp/controller/settingsPagesController/app_data_controllers/share_data_controller.dart';
 import 'package:unversityapp/controller/settingsPagesController/musicController.dart';
 import 'package:unversityapp/view/screens/FeaturesPages/BookMarkLectures.dart';
 import 'package:unversityapp/view/screens/NormalUsePages/Introduction.dart';
@@ -14,6 +18,10 @@ import 'package:unversityapp/view/screens/SettingsPages/FastChooseSubject.dart';
 import 'package:unversityapp/view/screens/SettingsPages/FastModePage.dart';
 import 'package:unversityapp/view/screens/SettingsPages/MusicPage.dart';
 import 'package:unversityapp/view/screens/SettingsPages/ProfilePage.dart';
+import 'package:unversityapp/view/screens/SettingsPages/advancedFeaturesPage.dart';
+import 'package:unversityapp/view/screens/SettingsPages/advancedFeaturesPages/create_exam_page.dart';
+import 'package:unversityapp/view/screens/SettingsPages/app_data_pages/app_data_page.dart';
+import 'package:unversityapp/view/screens/SettingsPages/app_data_pages/share_data_page.dart';
 import '../../view/screens/NormalUsePages/LectureView.dart';
 import '../middleware/middleware.dart';
 
@@ -31,11 +39,19 @@ class AppRoutes {
   static const String fastModePageRoute = "/FastModePage";
   static const String musicPageRoute = "/MusicPage";
   static const String profilePageRoute = "/profilePage";
+  static const String advancedFeaturePage = "/AdvancedFeaturePage";
+  static const String createExamPage = "/CreateExamPage";
+  static const String appDataPage = "/AppDataPage";
+  static const String shareDataPage = "/shareDataPage";
 }
 
 List<GetPage<dynamic>>? routes = [
   GetPage(name: '/', page: () => Introduction(), middlewares: [MiddleWare()]),
-  GetPage(name: AppRoutes.mainPageRoute, page: () => MainPage()),
+  GetPage(
+      name: AppRoutes.mainPageRoute,
+      transitionDuration: const Duration(seconds: 1),
+      transition: Transition.leftToRight,
+      page: () => MainPage()),
   GetPage(name: AppRoutes.subjectPageRoute, page: () => const SubjectsPage()),
   GetPage(
       name: AppRoutes.bookMarkRoute,
@@ -67,5 +83,21 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
       name: AppRoutes.profilePageRoute,
       page: () => const ProfilePage(),
-      binding: BindingsBuilder.put(() => ProfileControllerimp()))
+      binding: BindingsBuilder.put(() => ProfileControllerimp())),
+  GetPage(
+      name: AppRoutes.advancedFeaturePage,
+      page: () => const AdvancedFeaturePage(),
+      binding: BindingsBuilder.put(() => AdvancedFeaturesControllerImp())),
+  GetPage(
+      name: AppRoutes.createExamPage,
+      page: () => const CreateExamPage(),
+      binding: BindingsBuilder.put(() => CreateExamController())),
+  GetPage(
+      name: AppRoutes.appDataPage,
+      page: () => const AppDataPage(),
+      binding: BindingsBuilder.put(() => AppDataController())),
+  GetPage(
+      name: AppRoutes.shareDataPage,
+      page: () => const ShareDataPage(),
+      binding: BindingsBuilder.put(() => ShareDataController())),
 ];

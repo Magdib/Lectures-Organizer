@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color backgroundColor = Color.fromARGB(255, 245, 245, 245);
   static const Color primaryColor = Color(0XFF003762);
-  static const Color veryDeepred = Color.fromARGB(255, 101, 8, 1);
+  static const Color veryDeepRed = Color.fromARGB(255, 101, 8, 1);
   static const Color moreDeepred = Color.fromARGB(255, 168, 20, 9);
   static const Color deepblue = Color(0XFF003762);
-  static const Color weightblue = Color.fromARGB(255, 40, 33, 243);
+  static const Color weightBlue = Color.fromARGB(255, 40, 33, 243);
   static const Color verylightBlue = Color(0XFFe7f5f3);
   static const Color lightblue = Color(0XFF75E2FF);
   static const Color blue = Color(0XFF12ADC1);

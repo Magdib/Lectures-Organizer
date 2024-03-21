@@ -7,7 +7,7 @@ import 'package:unversityapp/core/functions/GlobalFunctions/addToRecent.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/getLectures.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import 'package:unversityapp/core/services/Services.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 
 import '../../core/Constant/HiveData/HiveKeysBoxes.dart';
 import '../../core/Routes/routes.dart';

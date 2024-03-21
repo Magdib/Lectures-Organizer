@@ -8,12 +8,12 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/class/enums/LectureState.dart';
 import 'package:unversityapp/core/functions/snackBars/ErrorSnackBar.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:unversityapp/view/Widgets/shared/BlueSnackBar.dart';
 import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
-import 'package:unversityapp/view/Widgets/shared/TextFormField.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomTextField.dart';
 import '../../core/functions/GlobalFunctions/hiveNullCheck.dart';
 
 abstract class LectureViewController extends GetxController {

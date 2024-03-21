@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../../../model/HiveAdaptersModels/LecturesAdapter.dart';
+import '../../../model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 import '../../Constant/HiveData/HiveKeysBoxes.dart';
 
 void getLectures(Box<dynamic> userDataBox, Box<LecturesPageModel> lecturesBox,

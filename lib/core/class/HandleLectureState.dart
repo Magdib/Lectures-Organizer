@@ -23,7 +23,7 @@ class HandleLectureState extends StatelessWidget {
     return lectureState == LectureState.loadingFailed
         ? Container(
             padding: const EdgeInsets.all(10.0),
-            color: AppColors.veryDeepred,
+            color: AppColors.veryDeepRed,
             child: Center(
               child: Text(
                 "فشل فتح الملف الرجاء إعادة تشغيل التطبيق.\n\n في حالة أستمرار الفشل قد يكون الملف معطوب أو تم تغيير مكانه من المسار:\n storage/emulated/0/Android/data/com.magdibrahem.unversityapp/files \nويجب إعادة إضافته مجدداً.\n\n$errorText ",

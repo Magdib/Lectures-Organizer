@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/ProfileController.dart';
 import 'package:unversityapp/view/Widgets/MainPages/Settings/Profile/AddRemoveRow.dart';
 import 'package:unversityapp/view/Widgets/shared/CustomButton.dart';
-import 'package:unversityapp/view/Widgets/shared/TextFormField.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomTextField.dart';
 
 class SmartAverageData extends StatelessWidget {
   const SmartAverageData({

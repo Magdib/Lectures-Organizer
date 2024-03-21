@@ -7,8 +7,8 @@ import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/Routes/routes.dart';
 import 'package:unversityapp/core/class/enums/DataState.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/SubjectsAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/SubjectsAdapter.dart';
 import 'package:unversityapp/core/services/Services.dart';
 
 abstract class FastModeController extends GetxController {
@@ -145,7 +145,7 @@ class FastModeControllerimp extends FastModeController {
     selectedViewer ??= hiveNullCheck(HiveKeys.selectedViewer, 0);
     activeMusic = hiveNullCheck(HiveKeys.activeMusic, false);
 
-    if (Get.previousRoute == AppRoutes.mainPageRoute) {
+    if (Get.previousRoute == AppRoutes.advancedFeaturePage) {
       subjectsBox = await Hive.openBox(HiveBoxes.subjectsBox);
       if (subjectsBox.isNotEmpty) {
         subjects.addAll(subjectsBox.values);

@@ -24,10 +24,7 @@ class SettingsButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
+                Text(text, style: Theme.of(context).textTheme.bodyText1!),
                 Icon(
                   icon,
                   size: 30,

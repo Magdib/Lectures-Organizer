@@ -21,6 +21,11 @@ class HiveKeys {
   static const String anyDegree = "AnyDegree";
   static const String smartAverage = "SmartAverage";
   static const String numOfSubAV = "NumOfSubAV";
+  static const String isVip = "isVip";
+  static const String automaticTheme = "AutomaticTheme";
+  static const String anyBackUp = "anyBackUp";
+  static const String backUpLecturesNumbers = 'backUpLecturesNumbers';
+  static const String appVersion = "appVersion";
 }
 
 class HiveBoxes {
@@ -30,4 +35,5 @@ class HiveBoxes {
   static const String lecturesBox = "LecturesBox";
   static const String recentBox = "RecentBox";
   static const String degreesBox = "DegreesBox";
+  static const String lecturesNamesBox = "LecturesNamesBox";
 }

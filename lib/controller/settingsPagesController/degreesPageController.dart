@@ -6,7 +6,7 @@ import 'package:unversityapp/core/class/enums/DataState.dart';
 import '../../core/Constant/HiveData/HiveKeysBoxes.dart';
 import '../../core/functions/GlobalFunctions/hiveNullCheck.dart';
 import '../../core/functions/snackBars/ErrorSnackBar.dart';
-import '../../model/HiveAdaptersModels/DegreesAdapter.dart';
+import '../../model/HiveAdaptersModels/NormalUseModels/DegreesAdapter.dart';
 
 abstract class DegreesController extends GetxController {
   void addDegree();

@@ -1,24 +1,16 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:unversityapp/core/Routes/routes.dart';
-import 'package:unversityapp/core/functions/Dialogs/CreatePdfDialog.dart';
 import 'package:unversityapp/core/functions/Dialogs/SettingsDialogs.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import '../../core/Constant/HiveData/HiveKeysBoxes.dart';
 
 abstract class SettingsController extends GetxController {
-  void changeTheme(bool value, BuildContext context);
+  void changeTheme(bool value);
   void changeViewer(int index);
   void refreshYearData();
   void getAverage(int state);
-  void createPdf();
-  Future<void> goToMusicPage(int x);
 }
 
 class SettingsControllerimp extends SettingsController {
@@ -38,7 +30,7 @@ class SettingsControllerimp extends SettingsController {
   double? average;
 
   @override
-  void changeTheme(bool value, BuildContext context) {
+  void changeTheme(bool value) {
     darkmood = value;
     userDataBox.put(HiveKeys.isDarkMood, darkmood);
 
@@ -71,50 +63,10 @@ class SettingsControllerimp extends SettingsController {
   @override
   void getAverage(int state) {
     average = hiveNullCheck(HiveKeys.average, 0.0);
-    // userDataBox.get(HiveKeys.average) == null
-    //     ? average = 0.0
-    //     : average = userDataBox.get(HiveKeys.average);
     if (state == 1) {
       userDataList[3] = 'المعدل : ${average!.toStringAsFixed(1)}';
     }
     update();
-  }
-
-  @override
-  void createPdf() async {
-    final pdf = pw.Document();
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-        allowedExtensions: ['png', "jpg", "jpeg"],
-        type: FileType.custom,
-        allowMultiple: true);
-    if (result != null) {
-      for (int i = 0; i < result.files.length; i++) {
-        PlatformFile pickedImage = result.files[i];
-        final image = pw.MemoryImage(
-          File(pickedImage.path!).readAsBytesSync(),
-        );
-        pdf.addPage(pw.Page(build: (pw.Context context) {
-          return pw.Center(
-              child: pw.Image(
-            image,
-          )); // Center
-        }));
-      }
-      createPdfDialog(pdf);
-    }
-  }
-
-  @override
-  Future<void> goToMusicPage(int x) async {
-    PermissionStatus p = await Permission.storage.status;
-    if (p.isDenied) {
-      await Permission.storage.request();
-      if (x == 0) {
-        goToMusicPage(1);
-      }
-    } else {
-      Get.toNamed(AppRoutes.musicPageRoute);
-    }
   }
 
   @override
@@ -147,7 +99,7 @@ class SettingsControllerimp extends SettingsController {
     ];
     settingsFeatures = [
       {
-        "text": 'إضافة درجات المواد',
+        "text": 'درجات المواد',
         "icon": Icons.menu_book,
         "function": () => Get.toNamed(AppRoutes.degreesPageRoute)
       },
@@ -157,24 +109,19 @@ class SettingsControllerimp extends SettingsController {
         "function": () => selectViewerDialog()
       },
       {
-        "text": 'الوضع السريع',
-        "icon": Icons.flash_on_outlined,
-        "function": () => Get.toNamed(AppRoutes.fastChooseSubjectRoute)
-      },
-      {
-        "text": 'تحويل صور إلى pdf',
-        "icon": Icons.picture_as_pdf_outlined,
-        "function": () => createPdf()
-      },
-      {
-        "text": 'موسيقى',
-        "icon": Icons.my_library_music_outlined,
-        "function": () => goToMusicPage(0)
-      },
-      {
         "text": 'البيانات الشخصية',
         "icon": Icons.manage_accounts_outlined,
         "function": () => Get.toNamed(AppRoutes.profilePageRoute)
+      },
+      {
+        "text": "خصائص التطبيق",
+        "icon": Icons.app_settings_alt_outlined,
+        "function": () => Get.toNamed(AppRoutes.appDataPage)
+      },
+      {
+        "text": "الميزات المتقدمة",
+        "icon": Icons.settings_suggest_outlined,
+        "function": () => Get.toNamed(AppRoutes.advancedFeaturePage)
       },
       {
         "text": 'حول التطبيق',

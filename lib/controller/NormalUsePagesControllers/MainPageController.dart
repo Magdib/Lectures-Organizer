@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:unversityapp/controller/MainPagesControllers/HomePageController.dart';
 import 'package:unversityapp/controller/MainPagesControllers/StaticsPageController.dart';
 import '../../core/Constant/HiveData/HiveKeysBoxes.dart';
 import '../../view/screens/MainPages/HomePage.dart';
@@ -38,6 +39,8 @@ class MainPageControllerimp extends MainPageController {
       staticState = true;
     } else {
       settingsState = false;
+      HomePageControllerimp homeController = Get.find();
+      homeController.getData(true);
     }
   }
 

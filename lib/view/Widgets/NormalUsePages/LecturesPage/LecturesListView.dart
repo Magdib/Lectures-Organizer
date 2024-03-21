@@ -4,7 +4,7 @@ import 'package:unversityapp/core/class/HandleData.dart';
 import 'package:unversityapp/core/functions/Dialogs/LecturesDialogs.dart';
 
 import '../../../../controller/NormalUsePagesControllers/LecturePageController.dart';
-import '../../../../core/Constant/uiNumber.dart';
+import '../../../../core/Constant/static_data.dart';
 import '../../shared/EmptyPageContent.dart';
 import 'BookMarkIconState.dart';
 
@@ -34,8 +34,8 @@ class LecturesListView extends StatelessWidget {
                           width: double.infinity,
                           height: 60,
                           decoration: BoxDecoration(
-                              color: controller.currentLectures[index].check ==
-                                      true
+                              color: controller.currentLectures[index].check ||
+                                      controller.currentLectures[index].chosen
                                   ? Theme.of(context)
                                       .floatingActionButtonTheme
                                       .backgroundColor
@@ -48,7 +48,7 @@ class LecturesListView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                             onDoubleTap: () =>
                                 lectureDataDialog(context, index),
-                            onTap: () => controller.openLecture(index),
+                            onTap: () => controller.handleLecturesTap(index),
                             onLongPress: controller.canComplete == true
                                 ? () => controller.completeLecture(index)
                                 : null,
@@ -63,14 +63,14 @@ class LecturesListView extends StatelessWidget {
                                     : controller
                                         .currentLectures[index].lecturename
                                         .replaceAll('.pdf', ''),
-                                style:
-                                    controller.currentLectures[index].check ==
-                                            false
-                                        ? Theme.of(context)
-                                            .textTheme
-                                            .headline1!
-                                            .copyWith(fontSize: 15)
-                                        : Theme.of(context).textTheme.bodyText1,
+                                style: controller
+                                            .currentLectures[index].check ||
+                                        controller.currentLectures[index].chosen
+                                    ? Theme.of(context).textTheme.bodyText1
+                                    : Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .copyWith(fontSize: 15),
                                 maxLines: 1,
                               ),
                             ),
@@ -84,7 +84,7 @@ class LecturesListView extends StatelessWidget {
                                     controller.addToBookMark(index),
                                 iconSize: 25,
                                 color: Theme.of(context).primaryColor,
-                                splashRadius: UINumbers.iconButtonRadius,
+                                splashRadius: StaticData.iconButtonRadius,
                                 icon: BookMarkIconState(
                                   completed:
                                       controller.currentLectures[index].check,

@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import 'package:unversityapp/core/services/Services.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 
 import '../../Constant/HiveData/HiveKeysBoxes.dart';
 

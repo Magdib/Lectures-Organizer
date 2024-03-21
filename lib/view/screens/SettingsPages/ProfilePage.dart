@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/ProfileController.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/view/Widgets/MainPages/Settings/Profile/AddRemoveRow.dart';
 import 'package:unversityapp/view/Widgets/MainPages/Settings/Profile/SmartAverageData.dart';
 import 'package:unversityapp/view/Widgets/shared/CustomAppBar.dart';
 import 'package:unversityapp/view/Widgets/shared/CustomButton.dart';
-import 'package:unversityapp/view/Widgets/shared/TextFormField.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomTextField.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -26,7 +27,7 @@ class ProfilePage extends StatelessWidget {
                   CustomTextField(
                     label: 'الاسم',
                     hint: 'أدخل اسمك هنا...  (حرفين على الأقل)',
-                    maxchar: 14,
+                    maxchar: StaticData.nameMaxChar,
                     editingController: controller.nameController,
                     onchange: (value) => controller.checkSaveState(),
                   ),
@@ -37,7 +38,7 @@ class ProfilePage extends StatelessWidget {
                       label: 'الفرع',
                       hint:
                           'أدخل الفرع الذي تدرسه هنا... (أربع أحرف على الأقل)',
-                      maxchar: 36,
+                      maxchar: StaticData.studyMaxChar,
                       editingController: controller.studyController,
                       onchange: (value) => controller.checkSaveState()),
                   const SizedBox(

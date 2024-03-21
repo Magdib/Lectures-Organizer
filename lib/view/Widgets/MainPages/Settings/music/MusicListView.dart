@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/musicController.dart';
 import 'package:unversityapp/core/Constant/AppColors.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/core/functions/Dialogs/MusicInfoDialog.dart';
 import 'package:unversityapp/view/Widgets/shared/CustomContainer.dart';
 
@@ -21,7 +21,7 @@ class MusicListView extends StatelessWidget {
             : const NeverScrollableScrollPhysics(),
         children: [
           CustomContainer(
-            width: UINumbers.deviceWidth,
+            width: StaticData.deviceWidth,
             height: 80,
             gradient: controller.activeMusic
                 ? LinearGradient(colors: [
@@ -106,7 +106,7 @@ class MusicListView extends StatelessWidget {
                       ),
                   itemCount: controller.songs.length)
               : SizedBox(
-                  height: UINumbers.deviceHeight - 200,
+                  height: StaticData.deviceHeight - 200,
                   child: Center(
                     child: Text(
                       "الموسيقى أثناء الدراسة غير مفعّلة",

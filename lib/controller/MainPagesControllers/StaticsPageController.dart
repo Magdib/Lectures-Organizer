@@ -26,7 +26,10 @@ class StaticsControllerimp extends StaticsController {
   late List<StaticsPageModel> progressList;
   @override
   void studyStateCheck() {
-    if (average > 90) {
+    if (average > 100) {
+      studyState = "إمّا نابغة أو منافق";
+      studyStateColor = AppColors.deepGreen;
+    } else if (average > 90) {
       studyState = " ممتاز";
       studyStateColor = AppColors.white;
     } else if (average > 80) {
@@ -40,7 +43,7 @@ class StaticsControllerimp extends StaticsController {
       studyStateColor = AppColors.deepred;
     } else if (average > 0 && average < 60) {
       studyState = " سيء";
-      studyStateColor = AppColors.veryDeepred;
+      studyStateColor = AppColors.veryDeepRed;
     } else {
       studyState = " فارغ";
       studyStateColor = AppColors.grey;

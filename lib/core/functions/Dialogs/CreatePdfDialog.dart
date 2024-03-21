@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/core/functions/snackBars/ErrorSnackBar.dart';
 import 'package:unversityapp/view/Widgets/shared/BlueSnackBar.dart';
 import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
-import 'package:unversityapp/view/Widgets/shared/TextFormField.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomTextField.dart';
 
 createPdfDialog(pw.Document pdf) {
   final TextEditingController pdfNameController = TextEditingController();
@@ -44,7 +45,7 @@ createPdfDialog(pw.Document pdf) {
           if (pdfNameController.text.isEmpty) {
             pdfNameController.text = "Test";
           }
-          String saveFolder = "/storage/emulated/0/Download/منسق المحاضرات/";
+          String saveFolder = StaticData.downloadSaveFolder;
           try {
             final file = File('$saveFolder${pdfNameController.text}.pdf');
             Directory? lectureDir = Directory(saveFolder);
@@ -56,8 +57,8 @@ createPdfDialog(pw.Document pdf) {
                 "تم إنشاء الملف ${pdfNameController.text}.pdf وحفظه في ذاكرة الجهاز سيتم فتح الملف بعد قليل...",
                 duration: const Duration(seconds: 5));
             await Future.delayed(const Duration(seconds: 6));
-            OpenResult openResult =
-                await OpenFile.open('$saveFolder${pdfNameController.text}.pdf');
+            OpenResult openResult = await OpenFile.open(
+                '$saveFolder/${pdfNameController.text}.pdf');
             log(openResult.message);
           } catch (e) {
             errorSnackBar("خطأ", "الخدمة غير مدعومة في نظامك");

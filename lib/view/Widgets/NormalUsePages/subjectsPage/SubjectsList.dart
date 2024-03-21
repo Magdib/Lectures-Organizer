@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/NormalUsePagesControllers/SubjectsPageController.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/core/functions/Dialogs/subjectsDialogs.dart';
 import '../../../../core/Constant/AppColors.dart';
 import '../../../../core/class/HandleData.dart';
@@ -69,7 +69,7 @@ class SubjectsList extends StatelessWidget {
                                 Icons.edit,
                                 color: AppColors.white,
                               ),
-                              splashRadius: UINumbers.iconButtonRadius,
+                              splashRadius: StaticData.iconButtonRadius,
                             ),
                           ),
                         ),

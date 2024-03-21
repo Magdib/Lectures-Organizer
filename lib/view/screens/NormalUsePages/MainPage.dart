@@ -38,8 +38,9 @@ class MainPage extends StatelessWidget {
                   index: controller.selectedpage.value,
                   onTap: (page) => controller.bottomBarChangePage(page),
                 )),
-        body: WillPopScope(
-          onWillPop: exitDialog,
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) => exitAppDialog(),
           child: PageView.builder(
             controller: controller.pageController,
             onPageChanged: (page) => controller.pageViewChangePage(page),

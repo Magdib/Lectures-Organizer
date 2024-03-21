@@ -8,10 +8,10 @@ import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/Routes/routes.dart';
 import 'package:unversityapp/core/class/enums/DataState.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/getLectures.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/LecturesAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 import '../../core/functions/snackBars/ErrorSnackBar.dart';
 import '../../core/functions/validation/TermStringToInt.dart';
-import '../../model/HiveAdaptersModels/SubjectsAdapter.dart';
+import '../../model/HiveAdaptersModels/NormalUseModels/SubjectsAdapter.dart';
 
 abstract class SubjectsPageController extends GetxController {
   void chooseFirstTerm();
@@ -36,7 +36,7 @@ class SubjectsPageControllerimp extends SubjectsPageController {
   late Box<SubjectsPageModel> subjectsBox;
   late Box<LecturesPageModel> lecturesBox;
   Box userDataBox = Hive.box(HiveBoxes.userDataBox);
-  final String pageyear = Get.arguments['year'];
+  late String pageyear;
   List<SubjectsPageModel> subjects = [];
   List<LecturesPageModel> lectures = [];
   List<SubjectsPageModel> currentYearSubjects = [];
@@ -79,8 +79,7 @@ class SubjectsPageControllerimp extends SubjectsPageController {
   @override
   void pageyearcontroll(int term) {
     if (subjects
-        .where((element) =>
-            element.subjectName!.startsWith(subjectNameController!.text))
+        .where((element) => element.subjectName! == subjectNameController!.text)
         .isEmpty) {
       subjects.add(SubjectsPageModel(
         id: pageyear,
@@ -166,8 +165,6 @@ class SubjectsPageControllerimp extends SubjectsPageController {
 
   @override
   onWillPop() async {
-    isFirstTerm = false;
-    isSecondeTerm = false;
     subjectButtonState = false;
     Get.back();
     await Future.delayed(const Duration(milliseconds: 500));
@@ -254,6 +251,8 @@ class SubjectsPageControllerimp extends SubjectsPageController {
       default:
     }
     filterListController!.clear();
+    currentYearSubjects
+        .sort((a, b) => a.subjectName!.compareTo(b.subjectName!));
     update();
   }
 
@@ -329,16 +328,39 @@ class SubjectsPageControllerimp extends SubjectsPageController {
     update();
   }
 
+  handleUpdate() async {
+    if (userDataBox.get(HiveKeys.appVersion) == null) {
+      for (int i = 0; i < lecturesBox.length; i++) {
+        lecturesBox.putAt(
+            i,
+            LecturesPageModel(
+                check: lecturesBox.getAt(i)!.check,
+                oldid: lecturesBox.getAt(i)!.oldid,
+                lecturepath: lecturesBox.getAt(i)!.lecturepath,
+                lecturename: lecturesBox.getAt(i)!.lecturename,
+                lecturetype: lecturesBox.getAt(i)!.lecturetype,
+                time: lecturesBox.getAt(i)!.time,
+                bookMarked: lecturesBox.getAt(i)!.bookMarked,
+                offset: lecturesBox.getAt(i)!.offset,
+                numberofPages: lecturesBox.getAt(i)!.numberofPages));
+      }
+      userDataBox.put(HiveKeys.appVersion, "1.2");
+    }
+  }
+
   @override
   void onReady() async {
     subjectsBox = await Hive.openBox(HiveBoxes.subjectsBox);
     lecturesBox = await Hive.openBox(HiveBoxes.lecturesBox);
+    await handleUpdate();
+
     refreshData();
     super.onReady();
   }
 
   @override
   void onInit() {
+    pageyear = Get.arguments['year'];
     filterListController = TextEditingController();
     editSubjectController = TextEditingController();
     subjectNameController = TextEditingController();

@@ -13,23 +13,27 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unversityapp/controller/NormalUsePagesControllers/SubjectsPageController.dart';
 import 'package:unversityapp/core/Constant/HiveData/HiveKeysBoxes.dart';
 import 'package:unversityapp/core/Routes/routes.dart';
+import 'package:unversityapp/core/class/app_toasts.dart';
 import 'package:unversityapp/core/class/enums/DataState.dart';
+import 'package:unversityapp/core/class/enums/lectures_dial_state.dart';
 import 'package:unversityapp/core/functions/Dialogs/LecturesDialogs.dart';
 import 'package:unversityapp/core/functions/GlobalFunctions/hiveNullCheck.dart';
 import 'package:unversityapp/core/functions/validation/TermStringToInt.dart';
 import 'package:unversityapp/core/services/Services.dart';
-import 'package:unversityapp/model/HiveAdaptersModels/SubjectsAdapter.dart';
+import 'package:unversityapp/model/HiveAdaptersModels/NormalUseModels/SubjectsAdapter.dart';
+import 'package:unversityapp/view/Widgets/shared/CustomTextField.dart';
+import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
 
 import '../../core/class/enums/ChooseIconState.dart';
 import '../../core/functions/GlobalFunctions/addToRecent.dart';
 import '../../core/functions/GlobalFunctions/getLectures.dart';
-import '../../model/HiveAdaptersModels/LecturesAdapter.dart';
-import '../../core/functions/snackBars/ErrorSnackBar.dart';
-import '../../view/Widgets/shared/BlueSnackBar.dart';
+import '../../model/HiveAdaptersModels/NormalUseModels/LecturesAdapter.dart';
 
 abstract class LecturePageController extends GetxController {
   List<LecturesPageModel> lectureToCurrent();
   int currentIndexToLectures(int index);
+  void changeDialState();
+  void handleChoosingDial(LecturesDialState chosenLecturesDial);
   void choosePR();
   void chooseVI();
   void chooseEX();
@@ -37,33 +41,38 @@ abstract class LecturePageController extends GetxController {
   Future<void> pickLectures();
   void lectureTypeFun(String type, int index);
   void addLecture();
+  void countTotalPages(BuildContext context);
   void onWillPop();
   void deleteSubject(BuildContext context);
   void shareSubject();
   void handelDSTap();
-
   void filterLectures(String value);
   void filterTypeFun(String value);
   void deleteLecture(int index);
   void completeLecture(int index);
   void completedLecturesCheck();
   void addToBookMark(int index);
-  void clearCach();
+  void clearCache();
+  void handleLecturesTap(int index);
+  void editLectureName(int index);
+  void shareLectureDial();
+  void deleteLectureDial();
   Future<void> openLecture(int index);
   void refreshData(int state);
-  void getNumberOfPages(
+  int getNumberOfPages(
       PdfDocumentLoadedDetails details, BuildContext context, int index);
   onWillPopDetailes();
 }
 
 class LecturePageControllerimp extends LecturePageController {
-  String subjectname = Get.arguments['subjectname'];
-  int subjectindex = Get.arguments["subjectIndex"];
+  late String subjectname;
+  late int subjectindex;
   Box userDataBox = Hive.box(HiveBoxes.userDataBox);
   Box<SubjectsPageModel> subjectsBox = Hive.box(HiveBoxes.subjectsBox);
   Box<LecturesPageModel> lecturesBox = Hive.box(HiveBoxes.lecturesBox);
   late Box<LecturesPageModel> recentBox;
   bool lectureButtonState = false;
+  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
   List<LecturesPageModel> lectures = [];
   List<LecturesPageModel> currentLectures = [];
   List<LecturesPageModel> recentLectures = [];
@@ -84,6 +93,9 @@ class LecturePageControllerimp extends LecturePageController {
   Timer? timer;
   Timer? minTimer;
   double? time;
+  bool isChoosing = false;
+  LecturesDialState lecturesDialState = LecturesDialState.none;
+  List<int> dialChosenIndexes = [];
   @override
   List<LecturesPageModel> lectureToCurrent() {
     List<LecturesPageModel> currentList;
@@ -109,10 +121,10 @@ class LecturePageControllerimp extends LecturePageController {
 
     if (result != null) {
       Directory? dataDir = await getExternalStorageDirectory();
-
       for (int i = 0; i < result.files.length; i++) {
         PlatformFile pieckedFile = result.files[i];
         File cachefile = File(pieckedFile.path!);
+
         File savedFile =
             await cachefile.copy('${dataDir!.path}/${result.names[i]}');
         log(savedFile.path);
@@ -164,12 +176,10 @@ class LecturePageControllerimp extends LecturePageController {
     Get.back();
     for (int i = 0; i < lecturesNames.length; i++) {
       if (lectures
-              .where(
-                  (lecture) => lecture.lecturename.contains(lecturesNames[i]))
+              .where((lecture) => lecture.lecturename == lecturesNames[i])
               .isNotEmpty ==
           true) {
-        errorSnackBar('المحاضرة موجودة سابقاً',
-            "الرجاء إضافة محاضرة أخرى أو تغيير اسم المحاضرة في حالة تطابق الأسماء");
+        AppToasts.showErrorToast('المحاضرة موجودة سابقاً');
       } else {
         if (lecturesNames[i] != '') {
           if (pr) {
@@ -188,7 +198,52 @@ class LecturePageControllerimp extends LecturePageController {
     lecturesNames.clear();
     filesPathes.clear();
     handleLectureButtonState();
+    completedLecturesCheck();
     iconState = ChooseIconState.empty;
+    update();
+  }
+
+  @override
+  void changeDialState() {
+    isChoosing = !isChoosing;
+    if (isChoosing) {
+      AppToasts.successToast("تم تفعيل وضع الأختيار");
+    } else {
+      AppToasts.showErrorToast("تم إلغاء وضع الأختيار");
+      lecturesDialState = LecturesDialState.none;
+      for (int i = 0; i < dialChosenIndexes.length; i++) {
+        currentLectures[dialChosenIndexes[i]].chosen = false;
+      }
+      dialChosenIndexes.clear();
+    }
+    update();
+  }
+
+  @override
+  void handleChoosingDial(LecturesDialState chosenLecturesDial) {
+    switch (chosenLecturesDial) {
+      case LecturesDialState.editing:
+        AppToasts.successToast("أختر محاضرة لتعديلها");
+        break;
+      case LecturesDialState.sharing:
+        if (lecturesDialState == chosenLecturesDial &&
+            dialChosenIndexes.isNotEmpty) {
+          shareLectureDial();
+        } else {
+          AppToasts.successToast("أختر المحاضرات لمشاركتها");
+        }
+        break;
+      case LecturesDialState.deleting:
+        if (lecturesDialState == chosenLecturesDial &&
+            dialChosenIndexes.isNotEmpty) {
+          deleteLectureDial();
+        } else {
+          AppToasts.successToast("أختر المحاضرات لحذفها");
+        }
+        break;
+      default:
+    }
+    lecturesDialState = chosenLecturesDial;
     update();
   }
 
@@ -220,6 +275,66 @@ class LecturePageControllerimp extends LecturePageController {
   }
 
   @override
+  void countTotalPages(BuildContext context) async {
+    if (currentLectures.isNotEmpty) {
+      Widget widget = const SizedBox();
+      int totalPages = 0;
+      double percent = 0;
+      Get.defaultDialog(
+          title: "حساب عدد الصفحات",
+          titleStyle:
+              Theme.of(context).textTheme.headline1!.copyWith(fontSize: 20),
+          onWillPop: () => Future.value(false),
+          content: GetBuilder<LecturePageControllerimp>(
+              builder: (controller) => Column(
+                    children: [
+                      LinearProgressIndicator(
+                          value: percent,
+                          backgroundColor: Theme.of(context).primaryColorLight),
+                      SizedBox(
+                        height: 0,
+                        width: 0,
+                        child: widget,
+                      ),
+                    ],
+                  )),
+          barrierDismissible: false);
+      for (int i = 0; i < currentLectures.length; i++) {
+        if (currentLectures[i].numberofPages! != 0) {
+          totalPages += currentLectures[i].numberofPages!;
+          percent = i / currentLectures.length;
+        } else {
+          log("Loading Document...");
+          widget = SfPdfViewer.file(
+            File(currentLectures[i].lecturepath),
+            pageLayoutMode: PdfPageLayoutMode.single,
+            onDocumentLoadFailed: (s) {
+              log("Document Failed To Load");
+              currentLectures[i].numberofPages = 1;
+            },
+            onDocumentLoaded: (details) {
+              log("Document Loaded");
+              totalPages +=
+                  getNumberOfPages(details, context, i, showData: false);
+              percent = i / currentLectures.length;
+              widget = const SizedBox();
+              update();
+            },
+          );
+          await Future.delayed(const Duration(milliseconds: 1500));
+          widget = const SizedBox();
+          update();
+        }
+      }
+      log("Number of pages === $totalPages");
+      AppToasts.successToast("عدد الصفحات الكلي هو $totalPages");
+      Get.back();
+    } else {
+      AppToasts.showErrorToast("لا يوجد محاضرات!!!");
+    }
+  }
+
+  @override
   void handleLectureButtonState() {
     if (lecturesNames.isNotEmpty && (pr == true || vi == true || ex == true)) {
       lectureButtonState = true;
@@ -240,12 +355,8 @@ class LecturePageControllerimp extends LecturePageController {
     }
     lecturesNames.clear();
     filesPathes.clear();
-    vi = false;
-    pr = false;
-    ex = false;
     handleLectureButtonState();
     iconState = ChooseIconState.empty;
-
     Get.back();
   }
 
@@ -361,11 +472,9 @@ class LecturePageControllerimp extends LecturePageController {
     lectures[lectureIndex].bookMarked = !lectures[lectureIndex].bookMarked;
     lecturesBox.putAt(lectureIndex, lectures[lectureIndex]);
     if (lectures[lectureIndex].bookMarked == true) {
-      blueSnackBar(currentLectures[index].lecturename,
-          'تم إضافة المحاضرة ${currentLectures[index].lecturename} إلى المحفوظات بنجاح');
+      AppToasts.successToast('تمت إضافة المحاضرة إلى المحفوظات');
     } else {
-      blueSnackBar(currentLectures[index].lecturename,
-          'تم إزالة المحاضرة ${currentLectures[index].lecturename} من المحفوظات بنجاح');
+      AppToasts.successToast('تم إزالة المحاضرة من المحفوظات');
     }
     update();
   }
@@ -373,26 +482,23 @@ class LecturePageControllerimp extends LecturePageController {
   @override
   void deleteSubject(BuildContext context) async {
     SubjectsPageControllerimp subjectsController = Get.find();
-
     subjectsController.subjects.removeAt(subjectindex);
-    subjectsController.subjectsBox.deleteAt(subjectindex);
+    await subjectsController.subjectsBox.deleteAt(subjectindex);
     subjectsController.numberOfSubjects--;
-    userDataBox.put(
+    await userDataBox.put(
         HiveKeys.subjectsNumber, subjectsController.numberOfSubjects);
-    Get.offAllNamed(
-      AppRoutes.homePageRoute,
-    );
     int lectureIndex = 0;
     for (int i = 0; i < currentLectures.length; i++) {
       lectureIndex = lectures
           .lastIndexWhere((lecture) => lecture.oldid.contains(subjectname));
-      File(lectures[lectureIndex].lecturepath).deleteSync();
+      await File(lectures[lectureIndex].lecturepath).delete();
       lectures.removeAt(lectureIndex);
-      lecturesBox.deleteAt(lectureIndex);
+      await lecturesBox.deleteAt(lectureIndex);
       numberofLectures--;
     }
-    userDataBox.put(HiveKeys.lecturesNumber, numberofLectures);
-    blueSnackBar(subjectname, 'تم حذف المادة بنجاح');
+    await userDataBox.put(HiveKeys.lecturesNumber, numberofLectures);
+    AppToasts.successToast('تم حذف المادة بنجاح');
+    Get.offNamedUntil(AppRoutes.mainPageRoute, (route) => false);
   }
 
   @override
@@ -405,9 +511,11 @@ class LecturePageControllerimp extends LecturePageController {
   }
 
   @override
-  void deleteLecture(int index) async {
+  void deleteLecture(int index, {bool back = true}) async {
     SubjectsPageControllerimp subjectsPageControllerimp = Get.find();
-    Get.back();
+    if (back) {
+      Get.back();
+    }
     int deleteIndex = currentIndexToLectures(index);
     File(currentLectures[index].lecturepath).deleteSync();
     lecturesBox.deleteAt(deleteIndex);
@@ -421,30 +529,123 @@ class LecturePageControllerimp extends LecturePageController {
       dataState = DataState.empty;
     }
     completedLecturesCheck();
-    update();
+    if (back) {
+      update();
+    }
   }
 
   @override
-  void clearCach() async {
+  void clearCache() async {
     Directory cachDir = await getTemporaryDirectory();
     cachDir.deleteSync(recursive: true);
   }
 
   @override
-  void getNumberOfPages(
-      PdfDocumentLoadedDetails details, BuildContext context, int index) {
+  int getNumberOfPages(
+      PdfDocumentLoadedDetails details, BuildContext context, int index,
+      {bool showData = true}) {
     int lectureIndex = currentIndexToLectures(index);
     lectures[lectureIndex].numberofPages = details.document.pages.count;
-
+    currentLectures[index].numberofPages = lectures[lectureIndex].numberofPages;
     lecturesBox.putAt(lectureIndex, lectures[lectureIndex]);
-    Get.back();
-    lectureDataDialog(context, index);
+
+    if (showData) {
+      Get.back();
+      lectureDataDialog(context, index);
+    }
+    return details.document.pages.count;
   }
 
   @override
   onWillPopDetailes() {
     Get.back();
     return Future.value(true);
+  }
+
+  @override
+  void handleLecturesTap(int index) {
+    if (lecturesDialState == LecturesDialState.none) {
+      openLecture(index);
+    } else if (lecturesDialState == LecturesDialState.editing) {
+      editLectureName(index);
+    } else {
+      if (dialChosenIndexes.indexWhere((listIndex) => listIndex == index) ==
+          -1) {
+        dialChosenIndexes.add(index);
+        currentLectures[index].chosen = true;
+      } else {
+        dialChosenIndexes.remove(index);
+        currentLectures[index].chosen = false;
+      }
+      update();
+    }
+  }
+
+  @override
+  void deleteLectureDial() {
+    dialChosenIndexes.sort();
+    dialChosenIndexes = dialChosenIndexes.reversed.toList();
+    for (int i = 0; i < dialChosenIndexes.length; i++) {
+      deleteLecture(dialChosenIndexes[i], back: false);
+    }
+    AppToasts.successToast("تم حذف المحاضرات بنجاح");
+    dialChosenIndexes.clear();
+    update();
+  }
+
+  @override
+  void shareLectureDial() {
+    dialChosenIndexes.sort();
+    List<XFile> shareLecture = [];
+    for (int i = 0; i < dialChosenIndexes.length; i++) {
+      shareLecture
+          .add(XFile(currentLectures[dialChosenIndexes[i]].lecturepath));
+    }
+    Share.shareXFiles(shareLecture);
+  }
+
+  @override
+  void editLectureName(int index) {
+    TextEditingController newNameController =
+        TextEditingController(text: currentLectures[index].lecturename);
+    Get.defaultDialog(
+        titlePadding: const EdgeInsets.only(top: 8, bottom: 0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 13),
+        title: 'تعديل',
+        titleStyle: Get.textTheme.headline1,
+        content: CustomTextField(
+            hint: "أدخل الاسم الجديد هنا...",
+            editingController: newNameController),
+        cancel: DialogButton(
+          text: "إلغاء",
+          onPressed: () async {
+            Get.back();
+            await Future.delayed(const Duration(seconds: 1));
+            newNameController.dispose();
+          },
+        ),
+        confirm: DialogButton(
+          text: "تأكيد",
+          onPressed: () async {
+            if (lectures.indexWhere((lecture) =>
+                    lecture.lecturename == newNameController.text) ==
+                -1) {
+              Get.back();
+              File lecture = File(currentLectures[index].lecturepath);
+              String newPath =
+                  "${lecture.path.replaceFirst(currentLectures[index].lecturename, newNameController.text)}.pdf";
+              await lecture.rename(newPath);
+              currentLectures[index].lecturename =
+                  "${newNameController.text}.pdf";
+              currentLectures[index].lecturepath = newPath;
+              update();
+              await Future.delayed(const Duration(seconds: 1));
+              newNameController.dispose();
+            } else {
+              AppToasts.showErrorToast("هناك محاضرة أخرى بهذا الاسم");
+            }
+          },
+        ));
   }
 
   @override
@@ -512,15 +713,21 @@ class LecturePageControllerimp extends LecturePageController {
     numberofLectures = currentLectures.length;
     if (currentLectures.isNotEmpty) {
       dataState = DataState.notEmpty;
+      for (int i = 0; i < currentLectures.length; i++) {
+        currentLectures[i].chosen = false;
+      }
     } else {
       dataState = DataState.empty;
     }
+
     update();
     super.onReady();
   }
 
   @override
   void onInit() {
+    subjectindex = Get.arguments["subjectIndex"];
+    subjectname = Get.arguments['subjectname'];
     filterEditController = TextEditingController();
     if (userDataBox.get(HiveKeys.lecturesNumber) != null &&
         userDataBox.get(HiveKeys.lecturesNumber) != 0) {
@@ -532,7 +739,6 @@ class LecturePageControllerimp extends LecturePageController {
         ? lectureType = userDataBox.get(HiveKeys.lectureType)
         : lectureType = "الكل";
     selectedViewer = hiveNullCheck(HiveKeys.selectedViewer, 0);
-
     super.onInit();
   }
 

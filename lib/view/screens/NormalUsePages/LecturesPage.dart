@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/NormalUsePagesControllers/LecturePageController.dart';
 import 'package:unversityapp/view/Widgets/NormalUsePages/LecturesPage/LectureDropDownButton.dart';
+import 'package:unversityapp/view/Widgets/NormalUsePages/LecturesPage/lectures_speed_dial.dart';
 import 'package:unversityapp/view/Widgets/shared/FilterTextFiled.dart';
 import '../../../core/functions/ExitAndRefresh/exitRefreshSubjects.dart';
-import '../../../core/Constant/AppColors.dart';
 import '../../Widgets/NormalUsePages/LecturesPage/LecturesListView.dart';
 import '../../Widgets/NormalUsePages/LecturesPage/SubjectProgress.dart';
 import '../../Widgets/NormalUsePages/LecturesPage/LecturesAppBar.dart';
-import '../../../core/functions/Dialogs/LecturesDialogs.dart';
 
 class LecturesPage extends StatelessWidget {
   const LecturesPage({Key? key}) : super(key: key);
@@ -19,12 +18,7 @@ class LecturesPage extends StatelessWidget {
         Get.put(LecturePageControllerimp());
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => lectureaddDialog(
-          context,
-        ),
-        child: const Icon(Icons.add, color: AppColors.white),
-      ),
+      floatingActionButton: const LecturesSpeedDial(),
       body: WillPopScope(
         onWillPop: exitRefreshSubjects,
         child: Padding(

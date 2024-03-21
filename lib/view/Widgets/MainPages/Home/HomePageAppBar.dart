@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/MainPagesControllers/HomePageController.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/view/Widgets/shared/CustomAppBarButtons.dart';
 
 class HomePageAppBar extends GetView<HomePageControllerimp> {
@@ -26,7 +26,7 @@ class HomePageAppBar extends GetView<HomePageControllerimp> {
             size: 27.5,
             color: Theme.of(context).primaryColor,
           ),
-          splashRadius: UINumbers.iconButtonRadius,
+          splashRadius: StaticData.iconButtonRadius,
         ),
         const GoToRecentButton()
       ],

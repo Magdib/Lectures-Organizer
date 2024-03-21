@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 
 import '../../../../controller/NormalUsePagesControllers/LecturePageController.dart';
 
@@ -16,7 +16,7 @@ class SubjectProgress extends StatelessWidget {
       builder: (controller) => LinearPercentIndicator(
         animation: true,
         animateFromLastPercent: true,
-        width: UINumbers.deviceWidth - 30,
+        width: StaticData.deviceWidth - 30,
         lineHeight: 7.0,
         percent: controller.percent,
         backgroundColor: Theme.of(context).primaryColorLight,

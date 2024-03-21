@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/view/Widgets/NormalUsePages/subjectsPage/SubjectEditeButton.dart';
 
 import '../../../controller/NormalUsePagesControllers/SubjectsPageController.dart';
@@ -7,7 +8,7 @@ import '../../../controller/NormalUsePagesControllers/SubjectsPageController.dar
 import '../../../view/Widgets/shared/DialogButton.dart';
 import '../../../view/Widgets/NormalUsePages/subjectsPage/SubjectConfirmButton.dart';
 import '../../../view/Widgets/NormalUsePages/subjectsPage/TermButtonsCloumn.dart';
-import '../../../view/Widgets/shared/TextFormField.dart';
+import '../../../view/Widgets/shared/CustomTextField.dart';
 import '../RichText/RichTextStyles.dart';
 
 void addSubjectDialog(BuildContext context) {
@@ -29,7 +30,7 @@ void addSubjectDialog(BuildContext context) {
               controller.handelSubjectButtonState();
             },
             editingController: controller.subjectNameController!,
-            maxchar: 30),
+            maxchar: StaticData.subjectMaxChar),
       ),
       confirm: const SubjectConfirmButton(),
       cancel: DialogButton(

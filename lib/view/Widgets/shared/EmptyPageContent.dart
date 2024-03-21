@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unversityapp/core/Constant/uiNumber.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 
 class EmptyPage extends StatelessWidget {
   const EmptyPage({
@@ -13,7 +13,7 @@ class EmptyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.only(bottom: UINumbers.deviceHeight / 10),
+        padding: EdgeInsets.only(bottom: StaticData.deviceHeight / 10),
         child: Text(
           textAlign: TextAlign.center,
           'لا يوجد $whatisempty قم بإضافة $whatisempty1 من خلال الزر في الأسفل',

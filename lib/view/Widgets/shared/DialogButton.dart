@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/Constant/uiNumber.dart';
+import '../../../core/Constant/static_data.dart';
 import '../../../core/Constant/AppColors.dart';
 
 class DialogButton extends StatelessWidget {
@@ -25,7 +25,7 @@ class DialogButton extends StatelessWidget {
               side: BorderSide(color: Theme.of(context).primaryColor)),
           height: 50,
           padding: const EdgeInsets.all(0),
-          minWidth: UINumbers.deviceWidth / 4,
+          minWidth: StaticData.deviceWidth / 4,
           color: Theme.of(context).buttonTheme.colorScheme!.background,
           disabledColor: AppColors.grey,
           onPressed: onPressed,

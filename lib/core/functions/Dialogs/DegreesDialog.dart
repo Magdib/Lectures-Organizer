@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unversityapp/controller/settingsPagesController/degreesPageController.dart';
 import 'package:unversityapp/core/Constant/AppColors.dart';
+import 'package:unversityapp/core/Constant/static_data.dart';
 import 'package:unversityapp/view/Widgets/shared/DialogButton.dart';
 
 import '../../../view/Widgets/MainPages/Settings/DegreesPage/DegreeConfirmButton.dart';
-import '../../../view/Widgets/shared/TextFormField.dart';
+import '../../../view/Widgets/shared/CustomTextField.dart';
 
 void degreesDialog(BuildContext context) {
   DegreesControllerimp controller = Get.find();
@@ -19,7 +20,7 @@ void degreesDialog(BuildContext context) {
               hint: 'أدخل اسم المادة هنا',
               editingController: controller.degreeTextController!,
               onchange: (val) => controller.handleButtonState(val),
-              maxchar: 30),
+              maxchar: StaticData.subjectMaxChar),
           GetBuilder<DegreesControllerimp>(
             builder: (controller) => Column(
               children: [

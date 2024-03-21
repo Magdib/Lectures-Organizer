@@ -6,10 +6,11 @@ import '../../core/Constant/ConstLists/YearsLists.dart';
 
 abstract class HomePageController extends GetxController {
   void nextPage(int index);
+  void getData(bool refresh);
 }
 
 class HomePageControllerimp extends HomePageController {
-  Box userDataBox = Hive.box(HiveBoxes.userDataBox);
+  late Box userDataBox;
   late String yearWord;
   late String studentName;
   late int numberofYears;
@@ -22,10 +23,19 @@ class HomePageControllerimp extends HomePageController {
   }
 
   @override
-  void onInit() {
+  void getData(refresh) {
+    userDataBox = Hive.box(HiveBoxes.userDataBox);
     yearWord = userDataBox.get(HiveKeys.yearWord);
     studentName = userDataBox.get(HiveKeys.name);
     numberofYears = userDataBox.get(HiveKeys.numberofYears);
+    if (refresh) {
+      update();
+    }
+  }
+
+  @override
+  void onInit() {
+    getData(false);
     super.onInit();
   }
 }

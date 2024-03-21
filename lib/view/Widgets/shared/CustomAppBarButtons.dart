@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:unversityapp/core/Routes/routes.dart';
 
-import '../../../core/Constant/uiNumber.dart';
-import '../../../core/functions/Navigation.dart';
+import '../../../core/Constant/static_data.dart';
 
 class GoToBookMarkButton extends StatelessWidget {
   const GoToBookMarkButton({
@@ -11,13 +12,13 @@ class GoToBookMarkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => goToBookMark(),
+      onPressed: () => Get.toNamed(AppRoutes.bookMarkRoute),
       icon: Icon(
         Icons.bookmark_border_outlined,
         color: Theme.of(context).primaryColor,
         size: 30,
       ),
-      splashRadius: UINumbers.iconButtonRadius,
+      splashRadius: StaticData.iconButtonRadius,
     );
   }
 }
@@ -30,13 +31,13 @@ class GoToRecentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => goToRecentLectures(),
+      onPressed: () => Get.toNamed(AppRoutes.recentLecturesRoute),
       icon: Icon(
         Icons.update,
         color: Theme.of(context).primaryColor,
         size: 30,
       ),
-      splashRadius: UINumbers.iconButtonRadius,
+      splashRadius: StaticData.iconButtonRadius,
     );
   }
 }
